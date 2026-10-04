@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة الاختبارات الإلكترونية - اللغة الإنجليزية</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif'],
+                        inter: ['Inter', 'sans-serif']
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .en-text {
+            font-family: 'Inter', sans-serif;
+            direction: ltr;
+            display: inline-block;
+        }
+        .option-card {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .option-card:hover:not(.disabled) {
+            transform: translateY(-2px);
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.05);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 9999px;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #475569;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 antialiased min-h-screen flex flex-col selection:bg-brand-500 selection:text-white">
+
+    <header class="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 sticky top-0 z-40 shadow-sm transition-colors">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 gap-3">
+
+                <!-- Logo & Title -->
+                <div class="flex items-center space-x-3 space-x-reverse shrink-0">
+                    <div class="w-10 h-10 rounded-xl bg-brand-600 text-white flex items-center justify-center font-bold text-lg shadow-md shadow-brand-500/20">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white leading-tight">اختبار اللغة الإنجليزية الشامل</h1>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">49 سؤالاً • قواعد ومفردات</p>
+                    </div>
+                </div>
+
+                <!-- Controls & Stats -->
+                <div class="flex items-center gap-2 sm:gap-4">
+
+                    <!-- Dark Mode Toggle Button -->
+                    <button onclick="toggleDarkMode()" id="theme-toggle" title="تغيير المظهر" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-amber-400 hover:bg-slate-200 dark:hover:bg-slate-600 transition flex items-center justify-center">
+                        <i id="theme-icon" class="fa-solid fa-moon text-base"></i>
+                    </button>
+
+                    <!-- Question Map Toggle Button (Top Bar) -->
+                    <button onclick="toggleQuestionMap()" title="إخفاء/إظهار الخريطة" class="p-2.5 sm:px-3 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-600 transition flex items-center gap-2 text-xs font-bold">
+                        <i id="map-toggle-icon" class="fa-solid fa-map"></i>
+                        <span id="map-toggle-text" class="hidden sm:inline">إخفاء الخريطة</span>
+                    </button>
+
+                    <!-- Timer Badge & Toggle Button -->
+                    <div id="timer-badge" class="flex items-center gap-2 bg-slate-100 dark:bg-slate-700/80 text-slate-700 dark:text-slate-200 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-600 font-semibold text-xs sm:text-sm transition">
+                        <button onclick="toggleTimer()" title="تفعيل/إيقاف المؤقت" class="text-brand-600 dark:text-brand-400 hover:scale-110 transition focus:outline-none">
+                            <i id="timer-toggle-icon" class="fa-solid fa-circle-pause"></i>
+                        </button>
+                        <span id="timer-display" class="font-mono">00:00</span>
+                    </div>
+
+                    <!-- Top Progress Indicator (Desktop) -->
+                    <div class="hidden lg:flex items-center gap-2 w-36">
+                        <div class="flex-1 bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+                            <div id="top-progress-bar" class="bg-brand-600 h-full w-0 transition-all duration-300"></div>
+                        </div>
+                        <span id="top-progress-text" class="text-xs font-bold text-slate-500 dark:text-slate-400">0%</span>
+                    </div>
+
+                    <!-- Submit Action Button -->
+                    <button onclick="confirmSubmit()" class="bg-brand-600 hover:bg-brand-700 text-white px-3 sm:px-4 py-2 rounded-xl font-bold text-xs sm:text-sm shadow-sm transition flex items-center gap-2">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        <span class="hidden sm:inline">إنهاء وتصحيح</span>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+        <!-- Mobile Progress Bar -->
+        <div class="w-full bg-slate-200 dark:bg-slate-700 h-1 lg:hidden">
+            <div id="mobile-progress-bar" class="bg-brand-600 h-full w-0 transition-all duration-300"></div>
+        </div>
+    </header>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 w-full">
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 items-start">
+
+            <!-- Main Quiz Content Area -->
+            <main id="main-content" class="lg:col-span-3 space-y-6 transition-all duration-300">
+
+                <!-- Filter Banner -->
+                <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm flex flex-wrap items-center justify-between gap-4 transition-colors">
+                    <!-- Filter Buttons -->
+                    <div class="flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0 w-full sm:w-auto">
+                        <button onclick="setFilter('all')" id="filter-all" class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-brand-600 text-white transition">
+                            جميع الأسئلة (49)
+                        </button>
+                        <button onclick="setFilter('unanswered')" id="filter-unanswered" class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 transition">
+                            غير المحلولة (<span id="unanswered-count">49</span>)
+                        </button>
+                        <button onclick="setFilter('flagged')" id="filter-flagged" class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 transition">
+                            المعلمة بالمراجعة (<span id="flagged-count">0</span>)
+                        </button>
+                    </div>
+
+                    <!-- Auto-save note -->
+                    <div class="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-2">
+                        <i class="fa-solid fa-cloud-arrow-up text-brand-500"></i>
+                        <span>تتم حفظ إجاباتك تلقائياً</span>
+                    </div>
+                </div>
+
+                <!-- Questions Container Feed -->
+                <div id="quiz-feed" class="space-y-6">
+                    <!-- Dynamic injection of questions -->
+                </div>
+
+                <!-- Bottom Submit Banner -->
+                <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4 transition-colors">
+                    <div class="text-right">
+                        <h4 class="font-bold text-slate-800 dark:text-slate-100">هل انتهيت من جميع الأسئلة؟</h4>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">تأكد من إجابة كافة الأسئلة ومراجعة الأسئلة المؤشرة قبل التسليم النهائي.</p>
+                    </div>
+                    <button onclick="confirmSubmit()" class="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-bold px-8 py-3 rounded-xl shadow-lg shadow-green-600/20 transition transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-circle-check text-lg"></i>
+                        <span>تسليم وتصحيح الاختبار</span>
+                    </button>
+                </div>
+
+            </main>
+
+            <!-- Question Navigation Map (Sidebar) -->
+            <aside id="map-aside" class="lg:col-span-1 sticky top-24 space-y-6 transition-all duration-300">
+                <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm transition-colors">
+                    <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-100 dark:border-slate-700">
+                        <h3 class="font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
+                            <i class="fa-solid fa-border-all text-brand-600 dark:text-brand-400"></i>
+                            <span>خريطة الأسئلة</span>
+                        </h3>
+                        <span class="text-xs font-semibold px-2.5 py-1 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-full" id="palette-progress-text">0 / 49</span>
+                    </div>
+
+                    <!-- Question Grid Navigation -->
+                    <div id="question-palette" class="grid grid-cols-7 gap-2 max-h-[380px] overflow-y-auto p-1">
+                        <!-- Auto-injected question palette buttons -->
+                    </div>
+
+                    <!-- Legend -->
+                    <div class="mt-5 pt-4 border-t border-slate-100 dark:border-slate-700 space-y-2 text-xs text-slate-600 dark:text-slate-400">
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded bg-slate-100 dark:bg-slate-700 border border-slate-300 dark:border-slate-600"></span>
+                            <span>لم تُحل بعد</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded bg-brand-600 text-white"></span>
+                            <span>تمت الإجابة</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded bg-amber-400"></span>
+                            <span>مؤشر للمراجعة</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+        </div>
+    </div>
+
+    <!-- Submit Confirmation Modal -->
+    <div id="confirm-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-300 p-4">
+        <div class="bg-white dark:bg-slate-800 rounded-3xl max-w-md w-full p-6 text-center shadow-2xl transform scale-95 transition-all duration-300 border border-slate-100 dark:border-slate-700">
+            <div class="w-16 h-16 bg-amber-100 dark:bg-amber-900/40 text-amber-600 dark:text-amber-400 rounded-2xl flex items-center justify-center mx-auto text-2xl mb-4">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">تأكيد تسليم الاختبار</h3>
+            <p id="confirm-modal-msg" class="text-sm text-slate-600 dark:text-slate-300 mb-6">هل أنت تأكد من إنهاء الاختبار وتسليم الإجابات الآن؟</p>
+
+            <div class="flex items-center gap-3">
+                <button onclick="closeConfirmModal()" class="flex-1 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 py-2.5 rounded-xl font-bold text-sm transition">
+                    متابعة الحل
+                </button>
+                <button onclick="gradeExam()" class="flex-1 bg-brand-600 hover:bg-brand-700 text-white py-2.5 rounded-xl font-bold text-sm transition shadow-md shadow-brand-500/20">
+                    نعم، سلم الآن
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Detailed Results Modal -->
+    <div id="results-modal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-md z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-300 p-4 overflow-y-auto">
+        <div class="bg-white dark:bg-slate-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl transform scale-95 transition-all duration-300 my-8 border border-slate-100 dark:border-slate-700">
+
+            <!-- Result Badge Header -->
+            <div class="text-center mb-6">
+                <div id="result-badge-icon" class="w-20 h-20 rounded-3xl flex items-center justify-center mx-auto text-3xl mb-3 shadow-lg">
+                    <!-- Icon injected -->
+                </div>
+                <h3 id="result-status-title" class="text-2xl font-extrabold text-slate-900 dark:text-white">اكتمل الاختبار!</h3>
+                <p id="result-status-subtitle" class="text-sm text-slate-500 dark:text-slate-400 mt-1">إليك تفاصيل أدائك في الاختبار الشامل</p>
+            </div>
+
+            <!-- Score Cards Row -->
+            <div class="grid grid-cols-3 gap-3 sm:gap-4 mb-6">
+                <div class="bg-slate-50 dark:bg-slate-700/50 p-4 rounded-2xl border border-slate-100 dark:border-slate-700 text-center">
+                    <span class="text-xs text-slate-500 dark:text-slate-400 font-bold block mb-1">النتيجة الكلية</span>
+                    <span id="res-score-text" class="text-xl sm:text-2xl font-extrabold text-brand-600 dark:text-brand-400">0 / 49</span>
+                </div>
+                <div class="bg-slate-50 dark:bg-slate-700/50 p-4 rounded-2xl border border-slate-100 dark:border-slate-700 text-center">
+                    <span class="text-xs text-slate-500 dark:text-slate-400 font-bold block mb-1">النسبة المئوية</span>
+                    <span id="res-percentage-text" class="text-xl sm:text-2xl font-extrabold text-slate-800 dark:text-slate-100">0%</span>
+                </div>
+                <div class="bg-slate-50 dark:bg-slate-700/50 p-4 rounded-2xl border border-slate-100 dark:border-slate-700 text-center">
+                    <span class="text-xs text-slate-500 dark:text-slate-400 font-bold block mb-1">الوقت المستغرق</span>
+                    <span id="res-time-text" class="text-xl sm:text-2xl font-extrabold text-slate-800 dark:text-slate-100 font-mono">00:00</span>
+                </div>
+            </div>
+
+            <!-- Section-wise Breakdown -->
+            <div class="space-y-3 mb-6 bg-slate-50 dark:bg-slate-700/40 p-4 rounded-2xl border border-slate-100 dark:border-slate-700">
+                <h4 class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">تفاصيل النتيجة حسب الأقسام:</h4>
+                <div id="section-breakdown" class="space-y-2">
+                    <!-- Section score bars injected here -->
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="flex flex-col sm:flex-row items-center gap-3">
+                <button onclick="closeResultsModal()" class="w-full sm:flex-1 bg-brand-600 hover:bg-brand-700 text-white py-3 rounded-xl font-bold transition text-sm flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <span>مراجعة الإجابات التفصيلية</span>
+                </button>
+                <button onclick="retakeExam()" class="w-full sm:w-auto bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 px-6 py-3 rounded-xl font-bold transition text-sm flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-rotate-right"></i>
+                    <span>إعادة الاختبار</span>
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // Full Question Dataset (49 Questions)
+        const quizDataset = [
+            {
+                section: "المفردات (Vocabulary)",
+                questions: [
+                    { id: 1, q: "1. devoted", options: ["airplane manufacture, development, and design", "trusted to work well", "dedicated", "famous"], answer: 2 },
+                    { id: 2, q: "2. pioneer", options: ["a person who starts or is involved in a new method or activity", "trusted to work well", "famous", "something that covers a wide range of ideas and details"], answer: 0 },
+                    { id: 3, q: "3. reliable", options: ["dedicated", "trusted to work well", "famous", "airplane manufacture, development, and design"], answer: 1 },
+                    { id: 4, q: "4. extensive", options: ["famous", "dedicated", "trusted to work well", "something that covers a wide range of ideas and details"], answer: 3 },
+                    { id: 5, q: "5. legendary", options: ["trusted to work well", "famous", "dedicated", "a person who starts a new method"], answer: 1 },
+                    { id: 6, q: "6. aviation", options: ["airplane manufacture, development, and design", "trusted to work well", "dedicated", "something that covers a wide range of ideas and details"], answer: 0 },
+                    { id: 7, q: "7. compensate", options: ["ways in which something lacks what it needs", "causing great fear", "animals that live by hunting others", "to overcome a weakness with a strength"], answer: 3 },
+                    { id: 8, q: "8. deficiencies", options: ["ways in which something lacks what it needs", "causing great fear", "extremely valuable; priceless", "animals that live by hunting others"], answer: 0 },
+                    { id: 9, q: "9. fearsome", options: ["extremely valuable; priceless", "causing great fear", "animals that live by hunting others", "to overcome a weakness with a strength"], answer: 1 },
+                    { id: 10, q: "10. invaluable", options: ["extremely valuable; priceless", "causing great fear", "ways in which something lacks what it needs", "to overcome a weakness with a strength"], answer: 0 },
+                    { id: 11, q: "11. predators", options: ["ways in which something lacks what it needs", "causing great fear", "animals that live by hunting others", "extremely valuable; priceless"], answer: 2 }
+                ]
+            },
+            {
+                section: "القواعد - (other / others / another)",
+                questions: [
+                    { id: 12, q: "12. He says he is so full of beef burgers. He says he could not eat _____.", options: ["other", "others", "another", "the other"], answer: 2 },
+                    { id: 13, q: "13. You can use that topic for your paper. I have a few _____ in mind for my paper.", options: ["other", "others", "another", "the another"], answer: 1 },
+                    { id: 14, q: "14. They like their cats so much that they are talking about getting _____ kitten.", options: ["other", "others", "another", "the others"], answer: 2 },
+                    { id: 15, q: "15. You can keep that pen. I have two or three _____ pens in my backpack.", options: ["other", "others", "another", "the others"], answer: 0 },
+                    { id: 16, q: "16. There are six _____ people in line ahead of us.", options: ["other", "others", "another", "the others"], answer: 0 },
+                    { id: 17, q: "17. Cover your mouth when you cough so that _____ won't catch your cold.", options: ["other", "others", "another", "the another"], answer: 1 },
+                    { id: 18, q: "18. I just recovered from a cold, and already I'm getting _____ one.", options: ["other", "others", "another", "the others"], answer: 2 },
+                    { id: 19, q: "19. A: Would you like _____ cup of tea?", options: ["other", "others", "another", "the others"], answer: 2 },
+                    { id: 20, q: "20. B: Sure. I would love _____ [cup of tea]. Thanks!", options: ["other", "others", "another", "the other"], answer: 2 },
+                    { id: 21, q: "21. A: Do you have _____ pen?", options: ["other", "others", "another", "the others"], answer: 2 },
+                    { id: 22, q: "22. B: I'm sorry. I have _____ [pens], but I left them in my locker.", options: ["other", "others", "another", "the another"], answer: 1 },
+                    { id: 23, q: "23. A: It's cold outside! You might want to wear _____ clothes!", options: ["other", "others", "another", "the another"], answer: 0 },
+                    { id: 24, q: "24. B: I'll be fine. I'll just wear _____ sweater.", options: ["other", "others", "another", "the others"], answer: 2 },
+                    { id: 25, q: "25. A: I finished the reading. Did the teacher give us _____ homework for tonight?", options: ["other", "others", "another", "the others"], answer: 0 },
+                    { id: 26, q: "26. B: These are great cookies! I'm glad you like them! Would you like _____?", options: ["other", "others", "another", "the other"], answer: 2 },
+                    { id: 27, q: "27. B: Hey, I thought you were going to buy chocolate cookies!<br>A: I was, but then I found _____ that I liked more.", options: ["other", "others", "another", "the other"], answer: 1 }
+                ]
+            },
+            {
+                section: "القواعد - صيغ التوكيد (do / does / did)",
+                questions: [
+                    { id: 28, q: "28. Choose the correct emphatic form for: \"I hope you get better quickly.\"", options: ["I do hope you get better quickly.", "I does hope you get better quickly.", "I did hoped you get better quickly.", "I do hoped you get better quickly."], answer: 0 },
+                    { id: 29, q: "29. Choose the correct emphatic form for: \"That child plays quietly.\"", options: ["That child do play quietly.", "That child does play quietly.", "That child did play quietly.", "That child does plays quietly."], answer: 1 },
+                    { id: 30, q: "30. Choose the correct emphatic form for: \"He needs to find a job soon.\"", options: ["He do need to find a job soon.", "He does need to find a job soon.", "He did needed to find a job soon.", "He does needs to find a job soon."], answer: 1 },
+                    { id: 31, q: "31. Choose the correct emphatic form for: \"I asked my friend to join us.\"", options: ["I do ask my friend to join us.", "I does ask my friend to join us.", "I did ask my friend to join us.", "I did asked my friend to join us."], answer: 2 },
+                    { id: 32, q: "32. Choose the correct emphatic form for: \"This store has the best selection.\"", options: ["This store do have the best selection.", "This store does have the best selection.", "This store did has the best selection.", "This store does has the best selection."], answer: 1 },
+                    { id: 33, q: "33. Choose the correct emphatic form for: \"The teacher noticed you were absent.\"", options: ["The teacher did notice you were absent.", "The teacher do notice you were absent.", "The teacher does noticed you were absent.", "The teacher did noticed you were absent."], answer: 0 },
+                    { id: 34, q: "34. Choose the correct emphatic form for: \"He eats shrimp.\"", options: ["He do eat shrimp.", "He does eat shrimp.", "He did eats shrimp.", "He does eats shrimp."], answer: 1 },
+                    { id: 35, q: "35. Choose the correct emphatic form for: \"It rained in New York yesterday.\"", options: ["It do rain in New York yesterday.", "It does rain in New York yesterday.", "It did rain in New York yesterday.", "It did rained in New York yesterday."], answer: 2 },
+                    { id: 36, q: "36. Choose the correct emphatic form for: \"I feel sick.\"", options: ["I do feel sick.", "I does feel sick.", "I did felt sick.", "I do felt sick."], answer: 0 },
+                    { id: 37, q: "37. Choose the correct emphatic form for: \"They came to school last week.\"", options: ["They do come to school last week.", "They did come to school last week.", "They did came to school last week.", "They does come to school last week."], answer: 1 },
+                    { id: 38, q: "38. Choose the correct emphatic form for: \"Susan lives in Los Angeles.\"", options: ["Susan do live in Los Angeles.", "Susan does live in Los Angeles.", "Susan did lived in Los Angeles.", "Susan does lives in Los Angeles."], answer: 1 },
+                    { id: 39, q: "39. Choose the correct emphatic form for: \"You need to come with me.\"", options: ["You do need to come with me.", "You does need to come with me.", "You did needed to come with me.", "You do needs to come with me."], answer: 0 },
+                    { id: 40, q: "40. Choose the correct emphatic form for: \"The little bird followed us home.\"", options: ["The little bird do follow us home.", "The little bird does follow us home.", "The little bird did follow us home.", "The little bird did followed us home."], answer: 2 },
+                    { id: 41, q: "41. Choose the correct emphatic form for: \"We have that game.\"", options: ["We do have that game.", "We does have that game.", "We did had that game.", "We do has that game."], answer: 0 },
+                    { id: 42, q: "42. Choose the correct emphatic form for: \"They like to take expensive vacations.\"", options: ["They do like to take expensive vacations.", "They does like to take expensive vacations.", "They did liked to take expensive vacations.", "They do likes to take expensive vacations."], answer: 0 },
+                    { id: 43, q: "43. Choose the correct emphatic form for: \"Fahd works very hard.\"", options: ["Fahd do work very hard.", "Fahd does work very hard.", "Fahd did worked very hard.", "Fahd does works very hard."], answer: 1 }
+                ]
+            },
+            {
+                section: "القواعد - المضارع البسيط والمستمر (Simple Present vs Progressive)",
+                questions: [
+                    { id: 44, q: "44. Complete: \"I was really excited about us sharing a flat but he _____ (not/do) any chores.\"", options: ["don't do", "doesn't do", "isn't doing", "don't does"], answer: 1 },
+                    { id: 45, q: "45. Complete: \"One bathroom _____ (be) spotless because I clean it...\"", options: ["is", "are", "am", "being"], answer: 0 },
+                    { id: 46, q: "46. Complete: \"One bathroom is spotless because I _____ (clean) it but the other one is very dirty.\"", options: ["cleans", "clean", "am cleaning", "cleaned"], answer: 1 },
+                    { id: 47, q: "47. Complete: \"He _____ always _____ (leave) his dirty dishes around the flat.\"", options: ["is / leaving", "does / leave", "is / leaves", "has / left"], answer: 0 },
+                    { id: 48, q: "48. Complete: \"I _____ constantly _____ (clean up).\"", options: ["do / clean up", "am / cleaning up", "is / cleaning up", "have / cleaned up"], answer: 1 },
+                    { id: 49, q: "49. Complete: \"We agreed to take it in turns to do the laundry but he is always busy. I _____ (do) the laundry every week.\"", options: ["am doing", "do", "does", "did"], answer: 1 }
+                ]
+            }
+        ];
+
+        // Global State Variables
+        let userAnswers = {};      // { questionId: optionIndex }
+        let flaggedQuestions = {}; // { questionId: boolean }
+        let isSubmitted = false;
+        let timerSeconds = 0;
+        let timerInterval = null;
+        let isTimerActive = true;
+        let isDarkMode = false;
+        let isMapVisible = true;
+        let activeFilter = 'all';
+
+        const totalQuestionsCount = 49;
+
+        function toggleDarkMode() {
+            isDarkMode = !isDarkMode;
+            const htmlEl = document.documentElement;
+            const themeIcon = document.getElementById('theme-icon');
+
+            if (isDarkMode) {
+                htmlEl.classList.add('dark');
+                themeIcon.className = 'fa-solid fa-sun text-base text-amber-400';
+            } else {
+                htmlEl.classList.remove('dark');
+                themeIcon.className = 'fa-solid fa-moon text-base text-slate-600';
+            }
+        }
+
+        function toggleTimer() {
+            isTimerActive = !isTimerActive;
+            const timerBadge = document.getElementById('timer-badge');
+            const timerIcon = document.getElementById('timer-toggle-icon');
+
+            if (isTimerActive) {
+                timerIcon.className = 'fa-solid fa-circle-pause';
+                timerBadge.classList.remove('opacity-50');
+                startTimer();
+            } else {
+                timerIcon.className = 'fa-solid fa-circle-play';
+                timerBadge.classList.add('opacity-50');
+                clearInterval(timerInterval);
+            }
+        }
+
+        function toggleQuestionMap() {
+            isMapVisible = !isMapVisible;
+            const mapAside = document.getElementById('map-aside');
+            const mainContent = document.getElementById('main-content');
+            const mapText = document.getElementById('map-toggle-text');
+
+            if (isMapVisible) {
+                mapAside.classList.remove('hidden');
+                mainContent.className = 'lg:col-span-3 space-y-6 transition-all duration-300';
+                mapText.textContent = 'إخفاء الخريطة';
+            } else {
+                mapAside.classList.add('hidden');
+                mainContent.className = 'lg:col-span-4 space-y-6 transition-all duration-300';
+                mapText.textContent = 'إظهار الخريطة';
+            }
+        }
+
+        function startTimer() {
+            clearInterval(timerInterval);
+            if (!isTimerActive) return;
+
+            timerInterval = setInterval(() => {
+                timerSeconds++;
+                const mins = String(Math.floor(timerSeconds / 60)).padStart(2, '0');
+                const secs = String(timerSeconds % 60).padStart(2, '0');
+                document.getElementById('timer-display').textContent = `${mins}:${secs}`;
+            }, 1000);
+        }
+
+        function stopTimer() {
+            clearInterval(timerInterval);
+        }
+
+        function renderQuiz() {
+            const container = document.getElementById('quiz-feed');
+            container.innerHTML = '';
+
+            quizDataset.forEach((sectionObj) => {
+                // Section Box Header
+                const sectionHeader = document.createElement('div');
+                sectionHeader.className = 'pt-4 pb-2 border-b-2 border-brand-500/20 flex items-center justify-between';
+                sectionHeader.innerHTML = `
+                    <h2 class="text-base sm:text-lg font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
+                        <span class="w-3 h-3 rounded-full bg-brand-600 inline-block"></span>
+                        <span>${sectionObj.section}</span>
+                    </h2>
+                    <span class="text-xs font-bold text-slate-400">(${sectionObj.questions.length} أسئلة)</span>
+                `;
+                container.appendChild(sectionHeader);
+
+                // Questions inside section
+                sectionObj.questions.forEach((q) => {
+                    const isFlagged = !!flaggedQuestions[q.id];
+
+                    const qCard = document.createElement('div');
+                    qCard.id = `q-card-${q.id}`;
+                    qCard.className = `question-card bg-white dark:bg-slate-800 rounded-2xl border ${isFlagged ? 'border-amber-400 bg-amber-50/20 dark:bg-amber-900/10' : 'border-slate-200 dark:border-slate-700'} p-5 sm:p-6 shadow-sm transition scroll-mt-24`;
+
+                    // Card Header
+                    let headerHtml = `
+                        <div class="flex items-start justify-between gap-4 mb-4">
+                            <div class="flex-1">
+                                <span class="text-xs font-bold text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-900/30 px-2.5 py-1 rounded-md mb-2 inline-block">سؤال #${q.id}</span>
+                                <h3 class="text-base sm:text-lg font-semibold text-slate-900 dark:text-slate-100 en-text">${q.q}</h3>
+                            </div>
+                            <button onclick="toggleFlag(${q.id})" title="تأشير للمراجعة" class="flag-btn text-sm p-2 rounded-lg transition ${isFlagged ? 'bg-amber-100 dark:bg-amber-900/40 text-amber-600 dark:text-amber-400' : 'bg-slate-100 dark:bg-slate-700 text-slate-400 hover:text-amber-500'}">
+                                <i class="fa-solid fa-bookmark"></i>
+                            </button>
+                        </div>
+                    `;
+
+                    // Options list
+                    let optionsHtml = `<div class="grid grid-cols-1 gap-3">`;
+                    q.options.forEach((optText, optIdx) => {
+                        const optLetter = String.fromCharCode(65 + optIdx);
+                        const selected = userAnswers[q.id] === optIdx;
+
+                        let cardStyle = "border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-600";
+                        let badgeStyle = "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-600";
+
+                        if (selected) {
+                            cardStyle = "selected border-brand-600 bg-brand-50/50 dark:bg-brand-900/20";
+                            badgeStyle = "bg-brand-600 text-white border-brand-600";
+                        }
+
+                        // Post-submission styling
+                        if (isSubmitted) {
+                            const isCorrectAnswer = q.answer === optIdx;
+                            if (isCorrectAnswer) {
+                                cardStyle = "border-green-500 bg-green-50/80 dark:bg-green-900/20 text-slate-900 dark:text-white font-semibold";
+                                badgeStyle = "bg-green-600 text-white border-green-600";
+                            } else if (selected && !isCorrectAnswer) {
+                                cardStyle = "border-red-400 bg-red-50/80 dark:bg-red-900/20";
+                                badgeStyle = "bg-red-500 text-white border-red-500";
+                            } else {
+                                cardStyle = "border-slate-200 dark:border-slate-700 opacity-60";
+                            }
+                        }
+
+                        optionsHtml += `
+                            <button
+                                onclick="selectOption(${q.id}, ${optIdx})"
+                                ${isSubmitted ? 'disabled' : ''}
+                                id="opt-btn-${q.id}-${optIdx}"
+                                class="option-card w-full text-right p-3.5 rounded-xl border text-sm sm:text-base flex items-center gap-3 transition ${cardStyle} ${isSubmitted ? 'disabled cursor-default' : 'cursor-pointer'}">
+                                <span class="w-7 h-7 rounded-lg border flex items-center justify-center font-bold text-xs shrink-0 en-text ${badgeStyle}">
+                                    ${optLetter}
+                                </span>
+                                <span class="flex-1 en-text text-slate-800 dark:text-slate-200">${optText}</span>
+                                ${isSubmitted && q.answer === optIdx ? '<i class="fa-solid fa-circle-check text-green-600 dark:text-green-400 text-lg"></i>' : ''}
+                                ${isSubmitted && selected && q.answer !== optIdx ? '<i class="fa-solid fa-circle-xmark text-red-500 text-lg"></i>' : ''}
+                            </button>
+                        `;
+                    });
+                    optionsHtml += `</div>`;
+
+                    // Feedback box after submit
+                    let feedbackHtml = '';
+                    if (isSubmitted) {
+                        const correctLetter = String.fromCharCode(65 + q.answer);
+                        const isCorrect = userAnswers[q.id] === q.answer;
+                        feedbackHtml = `
+                            <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-700 text-xs font-bold ${isCorrect ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'} flex items-center gap-2">
+                                <i class="fa-solid ${isCorrect ? 'fa-check' : 'fa-triangle-exclamation'}"></i>
+                                <span>${isCorrect ? 'إجابة صحيحة!' : `إجابة خاطئة. الإجابة الصحيحة هي: (${correctLetter}) ${q.options[q.answer]}`}</span>
+                            </div>
+                        `;
+                    }
+
+                    qCard.innerHTML = headerHtml + optionsHtml + feedbackHtml;
+                    container.appendChild(qCard);
+                });
+            });
+
+            updateProgress();
+            renderPalette();
+        }
+
+        function selectOption(qId, optIdx) {
+            if (isSubmitted) return;
+            userAnswers[qId] = optIdx;
+            renderQuiz();
+        }
+
+        function toggleFlag(qId) {
+            flaggedQuestions[qId] = !flaggedQuestions[qId];
+            renderQuiz();
+        }
+
+        function updateProgress() {
+            const answeredCount = Object.keys(userAnswers).length;
+            const flaggedCount = Object.values(flaggedQuestions).filter(Boolean).length;
+            const percent = Math.round((answeredCount / totalQuestionsCount) * 100);
+
+            document.getElementById('top-progress-bar').style.width = `${percent}%`;
+            document.getElementById('mobile-progress-bar').style.width = `${percent}%`;
+            document.getElementById('top-progress-text').textContent = `${percent}%`;
+            document.getElementById('palette-progress-text').textContent = `${answeredCount} / ${totalQuestionsCount}`;
+
+            document.getElementById('unanswered-count').textContent = totalQuestionsCount - answeredCount;
+            document.getElementById('flagged-count').textContent = flaggedCount;
+        }
+
+        function renderPalette() {
+            const palette = document.getElementById('question-palette');
+            palette.innerHTML = '';
+
+            for (let i = 1; i <= totalQuestionsCount; i++) {
+                const isAns = userAnswers[i] !== undefined;
+                const isFlag = !!flaggedQuestions[i];
+
+                let btnClass = "bg-slate-100 dark:bg-slate-700/60 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-600 hover:bg-slate-200 dark:hover:bg-slate-600";
+
+                if (isAns) {
+                    btnClass = "bg-brand-600 text-white border-brand-600";
+                }
+                if (isFlag) {
+                    btnClass = "bg-amber-400 text-slate-900 border-amber-400 font-bold";
+                }
+
+                // Post submit styling for palette
+                if (isSubmitted) {
+                    let qObj = null;
+                    quizDataset.forEach(s => {
+                        const found = s.questions.find(q => q.id === i);
+                        if (found) qObj = found;
+                    });
+
+                    if (userAnswers[i] === qObj.answer) {
+                        btnClass = "bg-green-600 text-white border-green-600";
+                    } else {
+                        btnClass = "bg-red-500 text-white border-red-500";
+                    }
+                }
+
+                const btn = document.createElement('button');
+                btn.className = `w-full h-8 rounded-lg border text-xs font-bold transition flex items-center justify-center ${btnClass}`;
+                btn.textContent = i;
+                btn.onclick = () => scrollToQuestion(i);
+                palette.appendChild(btn);
+            }
+        }
+
+        function scrollToQuestion(qId) {
+            const el = document.getElementById(`q-card-${qId}`);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        function setFilter(type) {
+            activeFilter = type;
+            document.querySelectorAll('.filter-btn').forEach(b => {
+                b.classList.remove('bg-brand-600', 'text-white');
+                b.classList.add('bg-slate-100', 'dark:bg-slate-700', 'text-slate-600', 'dark:text-slate-300');
+            });
+
+            const activeBtn = document.getElementById(`filter-${type}`);
+            if (activeBtn) {
+                activeBtn.classList.remove('bg-slate-100', 'dark:bg-slate-700', 'text-slate-600', 'dark:text-slate-300');
+                activeBtn.classList.add('bg-brand-600', 'text-white');
+            }
+
+            for (let i = 1; i <= totalQuestionsCount; i++) {
+                const card = document.getElementById(`q-card-${i}`);
+                if (!card) continue;
+
+                if (type === 'all') {
+                    card.classList.remove('hidden');
+                } else if (type === 'unanswered') {
+                    if (userAnswers[i] === undefined) card.classList.remove('hidden');
+                    else card.classList.add('hidden');
+                } else if (type === 'flagged') {
+                    if (flaggedQuestions[i]) card.classList.remove('hidden');
+                    else card.classList.add('hidden');
+                }
+            }
+        }
+
+        function confirmSubmit() {
+            if (isSubmitted) {
+                openResultsModal();
+                return;
+            }
+
+            const unanswered = totalQuestionsCount - Object.keys(userAnswers).length;
+            const msgEl = document.getElementById('confirm-modal-msg');
+
+            if (unanswered > 0) {
+                msgEl.innerHTML = `تنبيه: يوجد لديك <strong class="text-red-600 dark:text-red-400">${unanswered} سؤالاً</strong> لم تجب عليها بعد.<br>هل أنت تأكد من التسليم النهائي؟`;
+            } else {
+                msgEl.textContent = 'لقد قمت بالإجابة على جميع الأسئلة. هل أنت جاهز لتسليم الاختبار ورؤية النتيجة؟';
+            }
+
+            const modal = document.getElementById('confirm-modal');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modal.firstElementChild.classList.remove('scale-95');
+                modal.firstElementChild.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeConfirmModal() {
+            const modal = document.getElementById('confirm-modal');
+            modal.classList.add('opacity-0');
+            modal.firstElementChild.classList.remove('scale-100');
+            modal.firstElementChild.classList.add('scale-95');
+            setTimeout(() => modal.classList.add('hidden'), 300);
+        }
+
+        function gradeExam() {
+            closeConfirmModal();
+            stopTimer();
+            isSubmitted = true;
+
+            let totalScore = 0;
+            const sectionScores = [];
+
+            quizDataset.forEach(s => {
+                let sCorrect = 0;
+                s.questions.forEach(q => {
+                    if (userAnswers[q.id] === q.answer) {
+                        totalScore++;
+                        sCorrect++;
+                    }
+                });
+                sectionScores.push({
+                    name: s.section,
+                    score: sCorrect,
+                    total: s.questions.length
+                });
+            });
+
+            renderQuiz();
+            showResults(totalScore, sectionScores);
+        }
+
+        function showResults(score, sections) {
+            const percentage = Math.round((score / totalQuestionsCount) * 100);
+
+            document.getElementById('res-score-text').textContent = `${score} / ${totalQuestionsCount}`;
+            document.getElementById('res-percentage-text').textContent = `${percentage}%`;
+
+            const mins = String(Math.floor(timerSeconds / 60)).padStart(2, '0');
+            const secs = String(timerSeconds % 60).padStart(2, '0');
+            document.getElementById('res-time-text').textContent = isTimerActive ? `${mins}:${secs}` : 'غير مفعّل';
+
+            const iconBox = document.getElementById('result-badge-icon');
+            const titleEl = document.getElementById('result-status-title');
+            const subEl = document.getElementById('result-status-subtitle');
+
+            if (percentage >= 85) {
+                iconBox.className = "w-20 h-20 rounded-3xl flex items-center justify-center mx-auto text-3xl mb-3 shadow-lg bg-green-100 dark:bg-green-900/40 text-green-600 dark:text-green-400 shadow-green-500/20";
+                iconBox.innerHTML = '<i class="fa-solid fa-trophy"></i>';
+                titleEl.textContent = "ممتاز! أداء استثنائي 🏆";
+                subEl.textContent = "لقد أجبت على معظم الأسئلة بشكل صحيح وتفوقت بامتياز!";
+            } else if (percentage >= 60) {
+                iconBox.className = "w-20 h-20 rounded-3xl flex items-center justify-center mx-auto text-3xl mb-3 shadow-lg bg-brand-100 dark:bg-brand-900/40 text-brand-600 dark:text-brand-400 shadow-brand-500/20";
+                iconBox.innerHTML = '<i class="fa-solid fa-star"></i>';
+                titleEl.textContent = "أحسنت! نتيجة جيدة جداً 👍";
+                subEl.textContent = "أداؤك جيد، ويمكنك مراجعة الأخطاء البسيطة لرفع نتيجتك للعلامة الكاملة.";
+            } else {
+                iconBox.className = "w-20 h-20 rounded-3xl flex items-center justify-center mx-auto text-3xl mb-3 shadow-lg bg-amber-100 dark:bg-amber-900/40 text-amber-600 dark:text-amber-400 shadow-amber-500/20";
+                iconBox.innerHTML = '<i class="fa-solid fa-arrow-trend-up"></i>';
+                titleEl.textContent = "تحتاج للمزيد من التدريب 💪";
+                subEl.textContent = "راجع الإجابات الخاطئة وأعد الاختبار مرة أخرى لتحسين مستواك.";
+            }
+
+            const secContainer = document.getElementById('section-breakdown');
+            secContainer.innerHTML = '';
+            sections.forEach(sec => {
+                const secPct = Math.round((sec.score / sec.total) * 100);
+                secContainer.innerHTML += `
+                    <div>
+                        <div class="flex justify-between text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                            <span>${sec.name}</span>
+                            <span>${sec.score} / ${sec.total} (${secPct}%)</span>
+                        </div>
+                        <div class="w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+                            <div class="bg-brand-600 h-full rounded-full" style="width: ${secPct}%"></div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            openResultsModal();
+        }
+
+        function openResultsModal() {
+            const modal = document.getElementById('results-modal');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modal.firstElementChild.classList.remove('scale-95');
+                modal.firstElementChild.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeResultsModal() {
+            const modal = document.getElementById('results-modal');
+            modal.classList.add('opacity-0');
+            modal.firstElementChild.classList.remove('scale-100');
+            modal.firstElementChild.classList.add('scale-95');
+            setTimeout(() => modal.classList.add('hidden'), 300);
+        }
+
+        function retakeExam() {
+            closeResultsModal();
+            userAnswers = {};
+            flaggedQuestions = {};
+            isSubmitted = false;
+            setFilter('all');
+            renderQuiz();
+            startTimer();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Initialize App
+        document.addEventListener('DOMContentLoaded', () => {
+            renderQuiz();
+            startTimer();
+        });
+    </script>
+</body>
+</html>
