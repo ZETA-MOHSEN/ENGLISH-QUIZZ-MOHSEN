@@ -81,7 +81,7 @@
                     </div>
                     <div>
                         <h1 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white leading-tight">مراجعة اختبار اللغة الانجليزية الوحدة الاولى</h1>
-                        <p class="text-xs text-slate-500 dark:text-slate-400">شعبة 303 </p>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">شعب/303-302-301</p>
                     </div>
                 </div>
 
@@ -94,9 +94,9 @@
                     </button>
 
                     <!-- Question Map Toggle Button (Top Bar) -->
-                    <button onclick="toggleQuestionMap()" title="إخفاء/إظهار الخريطة" class="p-2.5 sm:px-3 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-600 transition flex items-center gap-2 text-xs font-bold">
+                    <button id="map-toggle-btn" onclick="toggleQuestionMap()" title="إخفاء/إظهار الخريطة" class="p-2 sm:px-3 rounded-xl bg-brand-50 dark:bg-brand-900/40 text-brand-600 dark:text-brand-300 border border-brand-200 dark:border-brand-800 hover:bg-brand-100 transition flex items-center gap-1.5 text-xs font-bold">
                         <i id="map-toggle-icon" class="fa-solid fa-map"></i>
-                        <span id="map-toggle-text" class="hidden sm:inline">إخفاء الخريطة</span>
+                        <span id="map-toggle-text" class="text-xs">إخفاء الخريطة</span>
                     </button>
 
                     <!-- Timer Badge & Toggle Button -->
@@ -134,7 +134,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 items-start">
 
             <!-- Question Navigation Map (Right Side in RTL) -->
-            <aside id="map-aside" class="lg:col-span-1 sticky top-24 space-y-6 transition-all duration-300">
+            <aside id="map-aside" class="lg:col-span-1 lg:sticky lg:top-24 space-y-6 transition-all duration-500 ease-in-out transform">
                 <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm transition-colors">
                     <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-100 dark:border-slate-700">
                         <h3 class="font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
@@ -168,7 +168,7 @@
             </aside>
 
             <!-- Main Quiz Content Area (Left Side in RTL) -->
-            <main id="main-content" class="lg:col-span-3 space-y-6 transition-all duration-300">
+            <main id="main-content" class="lg:col-span-3 space-y-6 transition-all duration-500 ease-in-out transform origin-top">
 
                 <!-- Filter Banner -->
                 <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm flex flex-wrap items-center justify-between gap-4 transition-colors">
@@ -424,15 +424,27 @@
             const mapAside = document.getElementById('map-aside');
             const mainContent = document.getElementById('main-content');
             const mapText = document.getElementById('map-toggle-text');
+            const mapIcon = document.getElementById('map-toggle-icon');
+            const mapBtn = document.getElementById('map-toggle-btn');
 
             if (isMapVisible) {
                 mapAside.classList.remove('hidden');
-                mainContent.className = 'lg:col-span-3 space-y-6 transition-all duration-300';
+                // Size shrinks back smoothly to 3 columns to fit map
+                mainContent.className = 'lg:col-span-3 space-y-6 transition-all duration-500 ease-in-out transform scale-100 origin-top';
                 mapText.textContent = 'إخفاء الخريطة';
+                mapIcon.className = 'fa-solid fa-map';
+                if (mapBtn) {
+                    mapBtn.className = 'p-2 sm:px-3 rounded-xl bg-brand-50 dark:bg-brand-900/40 text-brand-600 dark:text-brand-300 border border-brand-200 dark:border-brand-800 hover:bg-brand-100 transition flex items-center gap-1.5 text-xs font-bold';
+                }
             } else {
                 mapAside.classList.add('hidden');
-                mainContent.className = 'lg:col-span-4 space-y-6 transition-all duration-300';
+                // Size expands and enlarges smoothly to fill full 4 columns
+                mainContent.className = 'lg:col-span-4 space-y-6 transition-all duration-500 ease-in-out transform scale-[1.01] origin-top';
                 mapText.textContent = 'إظهار الخريطة';
+                mapIcon.className = 'fa-solid fa-map-location-dot';
+                if (mapBtn) {
+                    mapBtn.className = 'p-2 sm:px-3 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-600 transition flex items-center gap-1.5 text-xs font-bold';
+                }
             }
         }
 
