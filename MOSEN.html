@@ -43,13 +43,13 @@
         .en-text {
             font-family: 'Inter', sans-serif;
             direction: ltr;
-            display: inline-block;
+            text-align: left;
         }
         .option-card {
             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .option-card:hover:not(.disabled) {
-            transform: translateY(-2px);
+            transform: translateY(-1px);
         }
         /* Custom scrollbar */
         ::-webkit-scrollbar {
@@ -80,8 +80,8 @@
                         <i class="fa-solid fa-graduation-cap"></i>
                     </div>
                     <div>
-                        <h1 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white leading-tight"> مراجعة اختبار اللغة الانجليزية الوحدة الاولى </h1>
-                        <p class="text-xs text-slate-500 dark:text-slate-400">49 سؤالاً • قواعد ومفردات</p>
+                        <h1 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white leading-tight">مراجعة اختبار اللغة الانجليزية الوحدة الاولى</h1>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">شعبة 303 </p>
                     </div>
                 </div>
 
@@ -133,7 +133,41 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 w-full">
         <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 items-start">
 
-            <!-- Main Quiz Content Area -->
+            <!-- Question Navigation Map (Right Side in RTL) -->
+            <aside id="map-aside" class="lg:col-span-1 sticky top-24 space-y-6 transition-all duration-300">
+                <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm transition-colors">
+                    <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-100 dark:border-slate-700">
+                        <h3 class="font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
+                            <i class="fa-solid fa-border-all text-brand-600 dark:text-brand-400"></i>
+                            <span>خريطة الأسئلة</span>
+                        </h3>
+                        <span class="text-xs font-semibold px-2.5 py-1 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-full" id="palette-progress-text">0 / 49</span>
+                    </div>
+
+                    <!-- Question Grid Navigation -->
+                    <div id="question-palette" class="grid grid-cols-7 gap-2 max-h-[380px] overflow-y-auto p-1">
+                        <!-- Auto-injected question palette buttons -->
+                    </div>
+
+                    <!-- Legend -->
+                    <div id="map-legend" class="mt-5 pt-4 border-t border-slate-100 dark:border-slate-700 space-y-2 text-xs text-slate-600 dark:text-slate-400">
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded bg-slate-100 dark:bg-slate-700 border border-slate-300 dark:border-slate-600"></span>
+                            <span>لم تُحل بعد</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded bg-brand-600 text-white"></span>
+                            <span>تمت الإجابة</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded bg-amber-400"></span>
+                            <span>مؤشر للمراجعة</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Quiz Content Area (Left Side in RTL) -->
             <main id="main-content" class="lg:col-span-3 space-y-6 transition-all duration-300">
 
                 <!-- Filter Banner -->
@@ -177,40 +211,6 @@
 
             </main>
 
-            <!-- Question Navigation Map (Sidebar) -->
-            <aside id="map-aside" class="lg:col-span-1 sticky top-24 space-y-6 transition-all duration-300">
-                <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm transition-colors">
-                    <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-100 dark:border-slate-700">
-                        <h3 class="font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
-                            <i class="fa-solid fa-border-all text-brand-600 dark:text-brand-400"></i>
-                            <span>خريطة الأسئلة</span>
-                        </h3>
-                        <span class="text-xs font-semibold px-2.5 py-1 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-full" id="palette-progress-text">0 / 49</span>
-                    </div>
-
-                    <!-- Question Grid Navigation -->
-                    <div id="question-palette" class="grid grid-cols-7 gap-2 max-h-[380px] overflow-y-auto p-1">
-                        <!-- Auto-injected question palette buttons -->
-                    </div>
-
-                    <!-- Legend -->
-                    <div class="mt-5 pt-4 border-t border-slate-100 dark:border-slate-700 space-y-2 text-xs text-slate-600 dark:text-slate-400">
-                        <div class="flex items-center gap-2">
-                            <span class="w-3 h-3 rounded bg-slate-100 dark:bg-slate-700 border border-slate-300 dark:border-slate-600"></span>
-                            <span>لم تُحل بعد</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <span class="w-3 h-3 rounded bg-brand-600 text-white"></span>
-                            <span>تمت الإجابة</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <span class="w-3 h-3 rounded bg-amber-400"></span>
-                            <span>مؤشر للمراجعة</span>
-                        </div>
-                    </div>
-                </div>
-            </aside>
-
         </div>
     </div>
 
@@ -247,8 +247,8 @@
                 <p id="result-status-subtitle" class="text-sm text-slate-500 dark:text-slate-400 mt-1">إليك تفاصيل أدائك في الاختبار الشامل</p>
             </div>
 
-            <!-- Score Cards Row -->
-            <div class="grid grid-cols-3 gap-3 sm:gap-4 mb-6">
+            <!-- Main Score Cards Row -->
+            <div class="grid grid-cols-3 gap-3 sm:gap-4 mb-3">
                 <div class="bg-slate-50 dark:bg-slate-700/50 p-4 rounded-2xl border border-slate-100 dark:border-slate-700 text-center">
                     <span class="text-xs text-slate-500 dark:text-slate-400 font-bold block mb-1">النتيجة الكلية</span>
                     <span id="res-score-text" class="text-xl sm:text-2xl font-extrabold text-brand-600 dark:text-brand-400">0 / 49</span>
@@ -260,6 +260,22 @@
                 <div class="bg-slate-50 dark:bg-slate-700/50 p-4 rounded-2xl border border-slate-100 dark:border-slate-700 text-center">
                     <span class="text-xs text-slate-500 dark:text-slate-400 font-bold block mb-1">الوقت المستغرق</span>
                     <span id="res-time-text" class="text-xl sm:text-2xl font-extrabold text-slate-800 dark:text-slate-100 font-mono">00:00</span>
+                </div>
+            </div>
+
+            <!-- Detailed Answer Summary Row -->
+            <div class="grid grid-cols-3 gap-3 sm:gap-4 mb-6">
+                <div class="bg-green-50 dark:bg-green-950/30 p-3.5 rounded-2xl border border-green-200 dark:border-green-800/50 text-center">
+                    <span class="text-xs text-green-700 dark:text-green-300 font-bold block mb-1">إجابات صحيحة</span>
+                    <span id="res-correct-text" class="text-lg sm:text-xl font-extrabold text-green-600 dark:text-green-400">0</span>
+                </div>
+                <div class="bg-red-50 dark:bg-red-950/30 p-3.5 rounded-2xl border border-red-200 dark:border-red-800/50 text-center">
+                    <span class="text-xs text-red-700 dark:text-red-300 font-bold block mb-1">إجابات خاطئة</span>
+                    <span id="res-wrong-text" class="text-lg sm:text-xl font-extrabold text-red-600 dark:text-red-400">0</span>
+                </div>
+                <div class="bg-amber-50 dark:bg-amber-950/30 p-3.5 rounded-2xl border border-amber-200 dark:border-amber-800/50 text-center">
+                    <span class="text-xs text-amber-700 dark:text-amber-300 font-bold block mb-1">غير مجاب عليها</span>
+                    <span id="res-unanswered-text" class="text-lg sm:text-xl font-extrabold text-amber-600 dark:text-amber-400">0</span>
                 </div>
             </div>
 
@@ -275,7 +291,7 @@
             <div class="flex flex-col sm:flex-row items-center gap-3">
                 <button onclick="closeResultsModal()" class="w-full sm:flex-1 bg-brand-600 hover:bg-brand-700 text-white py-3 rounded-xl font-bold transition text-sm flex items-center justify-center gap-2">
                     <i class="fa-solid fa-magnifying-glass"></i>
-                    <span>مراجعة الإجابات التفصيلية</span>
+                    <span>مراجعة الإجابات التفصيلية والتصحيح</span>
                 </button>
                 <button onclick="retakeExam()" class="w-full sm:w-auto bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 px-6 py-3 rounded-xl font-bold transition text-sm flex items-center justify-center gap-2">
                     <i class="fa-solid fa-rotate-right"></i>
@@ -287,75 +303,75 @@
     </div>
 
     <script>
-        // Full Question Dataset (49 Questions)
+        // Full Question Dataset (49 Questions) with Explanations (Reasons)
         const quizDataset = [
             {
                 section: "المفردات (Vocabulary)",
                 questions: [
-                    { id: 1, q: "1. devoted", options: ["airplane manufacture, development, and design", "trusted to work well", "dedicated", "famous"], answer: 2 },
-                    { id: 2, q: "2. pioneer", options: ["a person who starts or is involved in a new method or activity", "trusted to work well", "famous", "something that covers a wide range of ideas and details"], answer: 0 },
-                    { id: 3, q: "3. reliable", options: ["dedicated", "trusted to work well", "famous", "airplane manufacture, development, and design"], answer: 1 },
-                    { id: 4, q: "4. extensive", options: ["famous", "dedicated", "trusted to work well", "something that covers a wide range of ideas and details"], answer: 3 },
-                    { id: 5, q: "5. legendary", options: ["trusted to work well", "famous", "dedicated", "a person who starts a new method"], answer: 1 },
-                    { id: 6, q: "6. aviation", options: ["airplane manufacture, development, and design", "trusted to work well", "dedicated", "something that covers a wide range of ideas and details"], answer: 0 },
-                    { id: 7, q: "7. compensate", options: ["ways in which something lacks what it needs", "causing great fear", "animals that live by hunting others", "to overcome a weakness with a strength"], answer: 3 },
-                    { id: 8, q: "8. deficiencies", options: ["ways in which something lacks what it needs", "causing great fear", "extremely valuable; priceless", "animals that live by hunting others"], answer: 0 },
-                    { id: 9, q: "9. fearsome", options: ["extremely valuable; priceless", "causing great fear", "animals that live by hunting others", "to overcome a weakness with a strength"], answer: 1 },
-                    { id: 10, q: "10. invaluable", options: ["extremely valuable; priceless", "causing great fear", "ways in which something lacks what it needs", "to overcome a weakness with a strength"], answer: 0 },
-                    { id: 11, q: "11. predators", options: ["ways in which something lacks what it needs", "causing great fear", "animals that live by hunting others", "extremely valuable; priceless"], answer: 2 }
+                    { id: 1, q: "1. devoted", options: ["airplane manufacture, development, and design", "trusted to work well", "dedicated", "famous"], answer: 2, reason: "كلمة devoted تعني مكرس أو مهتم بشدة لشيء ما، وتماثل في المعنى كلمة dedicated." },
+                    { id: 2, q: "2. pioneer", options: ["a person who starts or is involved in a new method or activity", "trusted to work well", "famous", "something that covers a wide range of ideas and details"], answer: 0, reason: "كلمة pioneer تعني رائد أو شخص يبدأ أو ينخرط في طريقة أو نشاط جديد." },
+                    { id: 3, q: "3. reliable", options: ["dedicated", "trusted to work well", "famous", "airplane manufacture, development, and design"], answer: 1, reason: "كلمة reliable تعني موثوق به أو جدير بالثقة والاعتماد (trusted to work well)." },
+                    { id: 4, q: "4. extensive", options: ["famous", "dedicated", "trusted to work well", "something that covers a wide range of ideas and details"], answer: 3, reason: "كلمة extensive تعني واسع النطاق أو شامل يغطي مجموعة واسعة من الأفكار والتفاصيل." },
+                    { id: 5, q: "5. legendary", options: ["trusted to work well", "famous", "dedicated", "a person who starts a new method"], answer: 1, reason: "كلمة legendary تعني أسطوري أو شهير جداً (famous)." },
+                    { id: 6, q: "6. aviation", options: ["airplane manufacture, development, and design", "trusted to work well", "dedicated", "something that covers a wide range of ideas and details"], answer: 0, reason: "كلمة aviation تعني الطيران ومجال تصنيع وتطوير وتصميم الطائرات." },
+                    { id: 7, q: "7. compensate", options: ["ways in which something lacks what it needs", "causing great fear", "animals that live by hunting others", "to overcome a weakness with a strength"], answer: 3, reason: "كلمة compensate تعني يعوض أو يتغلب على نقطة ضعف بنقطة قوة." },
+                    { id: 8, q: "8. deficiencies", options: ["ways in which something lacks what it needs", "causing great fear", "extremely valuable; priceless", "animals that live by hunting others"], answer: 0, reason: "كلمة deficiencies تعني أوجه القصور أو النقص في ما تحتاجه." },
+                    { id: 9, q: "9. fearsome", options: ["extremely valuable; priceless", "causing great fear", "animals that live by hunting others", "to overcome a weakness with a strength"], answer: 1, reason: "كلمة fearsome تعني مخيف أو مهيب (causing great fear)." },
+                    { id: 10, q: "10. invaluable", options: ["extremely valuable; priceless", "causing great fear", "ways in which something lacks what it needs", "to overcome a weakness with a strength"], answer: 0, reason: "كلمة invaluable تعني لا يقدر بثمن أو شديد القيمة (extremely valuable; priceless)." },
+                    { id: 11, q: "11. predators", options: ["ways in which something lacks what it needs", "causing great fear", "animals that live by hunting others", "extremely valuable; priceless"], answer: 2, reason: "كلمة predators تعني الحيوانات المفترسة التي تعتمد على صيد غيرها." }
                 ]
             },
             {
-                section: "القواعد - (other / others / another)",
+                section: "القواعد (other / others / another)",
                 questions: [
-                    { id: 12, q: "12. He says he is so full of beef burgers. He says he could not eat _____.", options: ["other", "others", "another", "the other"], answer: 2 },
-                    { id: 13, q: "13. You can use that topic for your paper. I have a few _____ in mind for my paper.", options: ["other", "others", "another", "the another"], answer: 1 },
-                    { id: 14, q: "14. They like their cats so much that they are talking about getting _____ kitten.", options: ["other", "others", "another", "the others"], answer: 2 },
-                    { id: 15, q: "15. You can keep that pen. I have two or three _____ pens in my backpack.", options: ["other", "others", "another", "the others"], answer: 0 },
-                    { id: 16, q: "16. There are six _____ people in line ahead of us.", options: ["other", "others", "another", "the others"], answer: 0 },
-                    { id: 17, q: "17. Cover your mouth when you cough so that _____ won't catch your cold.", options: ["other", "others", "another", "the another"], answer: 1 },
-                    { id: 18, q: "18. I just recovered from a cold, and already I'm getting _____ one.", options: ["other", "others", "another", "the others"], answer: 2 },
-                    { id: 19, q: "19. A: Would you like _____ cup of tea?", options: ["other", "others", "another", "the others"], answer: 2 },
-                    { id: 20, q: "20. B: Sure. I would love _____ [cup of tea]. Thanks!", options: ["other", "others", "another", "the other"], answer: 2 },
-                    { id: 21, q: "21. A: Do you have _____ pen?", options: ["other", "others", "another", "the others"], answer: 2 },
-                    { id: 22, q: "22. B: I'm sorry. I have _____ [pens], but I left them in my locker.", options: ["other", "others", "another", "the another"], answer: 1 },
-                    { id: 23, q: "23. A: It's cold outside! You might want to wear _____ clothes!", options: ["other", "others", "another", "the another"], answer: 0 },
-                    { id: 24, q: "24. B: I'll be fine. I'll just wear _____ sweater.", options: ["other", "others", "another", "the others"], answer: 2 },
-                    { id: 25, q: "25. A: I finished the reading. Did the teacher give us _____ homework for tonight?", options: ["other", "others", "another", "the others"], answer: 0 },
-                    { id: 26, q: "26. B: These are great cookies! I'm glad you like them! Would you like _____?", options: ["other", "others", "another", "the other"], answer: 2 },
-                    { id: 27, q: "27. B: Hey, I thought you were going to buy chocolate cookies!<br>A: I was, but then I found _____ that I liked more.", options: ["other", "others", "another", "the other"], answer: 1 }
+                    { id: 12, q: "12. He says he is so full of beef burgers. He says he could not eat _____.", options: ["other", "others", "another", "the other"], answer: 2, reason: "نستخدم another مع الأسماء المفردة المعدودة أو كضمير للدلالة على شيء إضافي واحد مفرد." },
+                    { id: 13, q: "13. You can use that topic for your paper. I have a few _____ in mind for my paper.", options: ["other", "others", "another", "the another"], answer: 1, reason: "نستخدم others كضمير جمع مستقل للإشارة إلى مواضيع أخرى بدون ذكر الاسم بعدها مباشرة." },
+                    { id: 14, q: "14. They like their cats so much that they are talking about getting _____ kitten.", options: ["other", "others", "another", "the others"], answer: 2, reason: "نستخدم another قبل الاسم المفرد المعدود النكرة kitten (قطة أخرى إضافية)." },
+                    { id: 15, q: "15. You can keep that pen. I have two or three _____ pens in my backpack.", options: ["other", "others", "another", "the others"], answer: 0, reason: "نستخدم other قبل الأسماء الجمع المعدودة (other pens)." },
+                    { id: 16, q: "16. There are six _____ people in line ahead of us.", options: ["other", "others", "another", "the others"], answer: 0, reason: "نستخدم other قبل الاسم الجمع المعدود people." },
+                    { id: 17, q: "17. Cover your mouth when you cough so that _____ won't catch your cold.", options: ["other", "others", "another", "the another"], answer: 1, reason: "نستخدم others كضمير فاعل يعبر عن الآخرين بدون اسم بعدها." },
+                    { id: 18, q: "18. I just recovered from a cold, and already I'm getting _____ one.", options: ["other", "others", "another", "the others"], answer: 2, reason: "نستخدم another للإشارة إلى مفرد إضافي (another one)." },
+                    { id: 19, q: "19. A: Would you like _____ cup of tea?", options: ["other", "others", "another", "the others"], answer: 2, reason: "نستخدم another قبل الاسم المفرد المعدود cup." },
+                    { id: 20, q: "20. B: Sure. I would love _____ [cup of tea]. Thanks!", options: ["other", "others", "another", "the other"], answer: 2, reason: "نستخدم another للإشارة إلى كوب إضافي مفرد." },
+                    { id: 21, q: "21. A: Do you have _____ pen?", options: ["other", "others", "another", "the others"], answer: 2, reason: "نستخدم another قبل الاسم المفرد المعدود pen." },
+                    { id: 22, q: "22. B: I'm sorry. I have _____ [pens], but I left them in my locker.", options: ["other", "others", "another", "the another"], answer: 1, reason: "نستخدم others كضمير يعوض عن الاسم الجمع pens." },
+                    { id: 23, q: "23. A: It's cold outside! You might want to wear _____ clothes!", options: ["other", "others", "another", "the another"], answer: 0, reason: "نستخدم other قبل الاسم الجمع clothes." },
+                    { id: 24, q: "24. B: I'll be fine. I'll just wear _____ sweater.", options: ["other", "others", "another", "the others"], answer: 2, reason: "نستخدم another قبل الاسم المفرد المعدود sweater." },
+                    { id: 25, q: "25. A: I finished the reading. Did the teacher give us _____ homework for tonight?", options: ["other", "others", "another", "the others"], answer: 0, reason: "نستخدم other هنا مع الكلمات غير المعدودة أو في سياق السؤال المناسب." },
+                    { id: 26, q: "26. B: These are great cookies! I'm glad you like them! Would you like _____?", options: ["other", "others", "another", "the other"], answer: 2, reason: "نستخدم another لطلب قطعة إضافية مفردة معدودة." },
+                    { id: 27, q: "27. B: Hey, I thought you were going to buy chocolate cookies!<br>A: I was, but then I found _____ that I liked more.", options: ["other", "others", "another", "the other"], answer: 1, reason: "نستخدم others كضمير جمع يشير إلى بسكويت آخر." }
                 ]
             },
             {
-                section: "القواعد - صيغ التوكيد (do / does / did)",
+                section: "القواعد صيغ التوكيد (do / does / did)",
                 questions: [
-                    { id: 28, q: "28. Choose the correct emphatic form for: \"I hope you get better quickly.\"", options: ["I do hope you get better quickly.", "I does hope you get better quickly.", "I did hoped you get better quickly.", "I do hoped you get better quickly."], answer: 0 },
-                    { id: 29, q: "29. Choose the correct emphatic form for: \"That child plays quietly.\"", options: ["That child do play quietly.", "That child does play quietly.", "That child did play quietly.", "That child does plays quietly."], answer: 1 },
-                    { id: 30, q: "30. Choose the correct emphatic form for: \"He needs to find a job soon.\"", options: ["He do need to find a job soon.", "He does need to find a job soon.", "He did needed to find a job soon.", "He does needs to find a job soon."], answer: 1 },
-                    { id: 31, q: "31. Choose the correct emphatic form for: \"I asked my friend to join us.\"", options: ["I do ask my friend to join us.", "I does ask my friend to join us.", "I did ask my friend to join us.", "I did asked my friend to join us."], answer: 2 },
-                    { id: 32, q: "32. Choose the correct emphatic form for: \"This store has the best selection.\"", options: ["This store do have the best selection.", "This store does have the best selection.", "This store did has the best selection.", "This store does has the best selection."], answer: 1 },
-                    { id: 33, q: "33. Choose the correct emphatic form for: \"The teacher noticed you were absent.\"", options: ["The teacher did notice you were absent.", "The teacher do notice you were absent.", "The teacher does noticed you were absent.", "The teacher did noticed you were absent."], answer: 0 },
-                    { id: 34, q: "34. Choose the correct emphatic form for: \"He eats shrimp.\"", options: ["He do eat shrimp.", "He does eat shrimp.", "He did eats shrimp.", "He does eats shrimp."], answer: 1 },
-                    { id: 35, q: "35. Choose the correct emphatic form for: \"It rained in New York yesterday.\"", options: ["It do rain in New York yesterday.", "It does rain in New York yesterday.", "It did rain in New York yesterday.", "It did rained in New York yesterday."], answer: 2 },
-                    { id: 36, q: "36. Choose the correct emphatic form for: \"I feel sick.\"", options: ["I do feel sick.", "I does feel sick.", "I did felt sick.", "I do felt sick."], answer: 0 },
-                    { id: 37, q: "37. Choose the correct emphatic form for: \"They came to school last week.\"", options: ["They do come to school last week.", "They did come to school last week.", "They did came to school last week.", "They does come to school last week."], answer: 1 },
-                    { id: 38, q: "38. Choose the correct emphatic form for: \"Susan lives in Los Angeles.\"", options: ["Susan do live in Los Angeles.", "Susan does live in Los Angeles.", "Susan did lived in Los Angeles.", "Susan does lives in Los Angeles."], answer: 1 },
-                    { id: 39, q: "39. Choose the correct emphatic form for: \"You need to come with me.\"", options: ["You do need to come with me.", "You does need to come with me.", "You did needed to come with me.", "You do needs to come with me."], answer: 0 },
-                    { id: 40, q: "40. Choose the correct emphatic form for: \"The little bird followed us home.\"", options: ["The little bird do follow us home.", "The little bird does follow us home.", "The little bird did follow us home.", "The little bird did followed us home."], answer: 2 },
-                    { id: 41, q: "41. Choose the correct emphatic form for: \"We have that game.\"", options: ["We do have that game.", "We does have that game.", "We did had that game.", "We do has that game."], answer: 0 },
-                    { id: 42, q: "42. Choose the correct emphatic form for: \"They like to take expensive vacations.\"", options: ["They do like to take expensive vacations.", "They does like to take expensive vacations.", "They did liked to take expensive vacations.", "They do likes to take expensive vacations."], answer: 0 },
-                    { id: 43, q: "43. Choose the correct emphatic form for: \"Fahd works very hard.\"", options: ["Fahd do work very hard.", "Fahd does work very hard.", "Fahd did worked very hard.", "Fahd does works very hard."], answer: 1 }
+                    { id: 28, q: "28. Choose the correct emphatic form for: \"I hope you get better quickly.\"", options: ["I do hope you get better quickly.", "I does hope you get better quickly.", "I did hoped you get better quickly.", "I do hoped you get better quickly."], answer: 0, reason: "مع الضمير I في المضارع البسيط، نستخدم الفعل المساعد do + الفعل المجرد للحصول على صيغة التوكيد الصحيحة." },
+                    { id: 29, q: "29. Choose the correct emphatic form for: \"That child plays quietly.\"", options: ["That child do play quietly.", "That child does play quietly.", "That child did play quietly.", "That child does plays quietly."], answer: 1, reason: "الفاعل مفرد غائب (child) في المضارع البسيط يأخذ does + الفعل المجرد play." },
+                    { id: 30, q: "30. Choose the correct emphatic form for: \"He needs to find a job soon.\"", options: ["He do need to find a job soon.", "He does need to find a job soon.", "He did needed to find a job soon.", "He does needs to find a job soon."], answer: 1, reason: "الفاعل المفرد He يأخذ does ويتحول الفعل الرئيس إلى المصدر (need)." },
+                    { id: 31, q: "31. Choose the correct emphatic form for: \"I asked my friend to join us.\"", options: ["I do ask my friend to join us.", "I does ask my friend to join us.", "I did ask my friend to join us.", "I did asked my friend to join us."], answer: 2, reason: "الجملة الأصلية في الزمن الماضي البسيط (asked)، لذا نستخدم did + الفعل المجرد (ask)." },
+                    { id: 32, q: "32. Choose the correct emphatic form for: \"This store has the best selection.\"", options: ["This store do have the best selection.", "This store does have the best selection.", "This store did has the best selection.", "This store does has the best selection."], answer: 1, reason: "الفاعل مفرد (This store) في المضارع البسيط يأخذ does ويتحول الفعل has إلى المصدر have." },
+                    { id: 33, q: "33. Choose the correct emphatic form for: \"The teacher noticed you were absent.\"", options: ["The teacher did notice you were absent.", "The teacher do notice you were absent.", "The teacher does noticed you were absent.", "The teacher did noticed you were absent."], answer: 0, reason: "الفعل في الماضي (noticed)، فنستخدم did + الفعل المجرد (notice)." },
+                    { id: 34, q: "34. Choose the correct emphatic form for: \"He eats shrimp.\"", options: ["He do eat shrimp.", "He does eat shrimp.", "He did eats shrimp.", "He does eats shrimp."], answer: 1, reason: "مع المفرد الغائب He في المضارع نستخدم does + الفعل المجرد (eat)." },
+                    { id: 35, q: "35. Choose the correct emphatic form for: \"It rained in New York yesterday.\"", options: ["It do rain in New York yesterday.", "It does rain in New York yesterday.", "It did rain in New York yesterday.", "It did rained in New York yesterday."], answer: 2, reason: "وجود كلمة yesterday يدل على الماضي، فنستخدم did + الفعل المجرد (rain)." },
+                    { id: 36, q: "36. Choose the correct emphatic form for: \"I feel sick.\"", options: ["I do feel sick.", "I does feel sick.", "I did felt sick.", "I do felt sick."], answer: 0, reason: "مع الضمير I في المضارع البسيط نستخدم do + الفعل المجرد (feel)." },
+                    { id: 37, q: "37. Choose the correct emphatic form for: \"They came to school last week.\"", options: ["They do come to school last week.", "They did come to school last week.", "They did came to school last week.", "They does come to school last week."], answer: 1, reason: "الجملة في الماضي (came)، فنستخدم did + المصدر (come)." },
+                    { id: 38, q: "38. Choose the correct emphatic form for: \"Susan lives in Los Angeles.\"", options: ["Susan do live in Los Angeles.", "Susan does live in Los Angeles.", "Susan did lived in Los Angeles.", "Susan does lives in Los Angeles."], answer: 1, reason: "اسم مفرد (Susan) في المضارع يأخذ does ويتحول الفعل إلى المصدر (live)." },
+                    { id: 39, q: "39. Choose the correct emphatic form for: \"You need to come with me.\"", options: ["You do need to come with me.", "You does need to come with me.", "You did needed to come with me.", "You do needs to come with me."], answer: 0, reason: "مع الضمير You في المضارع البسيط نستخدم do + الفعل المجرد (need)." },
+                    { id: 40, q: "40. Choose the correct emphatic form for: \"The little bird followed us home.\"", options: ["The little bird do follow us home.", "The little bird does follow us home.", "The little bird did follow us home.", "The little bird did followed us home."], answer: 2, reason: "الفعل في الماضي (followed)، فنستخدم did + المصدر (follow)." },
+                    { id: 41, q: "41. Choose the correct emphatic form for: \"We have that game.\"", options: ["We do have that game.", "We does have that game.", "We did had that game.", "We do has that game."], answer: 0, reason: "مع الضمير We في المضارع البسيط نستخدم do + الفعل المجرد (have)." },
+                    { id: 42, q: "42. Choose the correct emphatic form for: \"They like to take expensive vacations.\"", options: ["They do like to take expensive vacations.", "They does like to take expensive vacations.", "They did liked to take expensive vacations.", "They do likes to take expensive vacations."], answer: 0, reason: "مع الفاعل الجمع They في المضارع البسيط نستخدم do + الفعل المجرد (like)." },
+                    { id: 43, q: "43. Choose the correct emphatic form for: \"Fahd works very hard.\"", options: ["Fahd do work very hard.", "Fahd does work very hard.", "Fahd did worked very hard.", "Fahd does works very hard."], answer: 1, reason: "الفاعل المفرد (Fahd) في المضارع البسيط يأخذ does ويتحول الفعل إلى المصدر (work)." }
                 ]
             },
             {
-                section: "القواعد - المضارع البسيط والمستمر (Simple Present vs Progressive)",
+                section: "القواعد المضارع البسيط والمستمر (Simple Present vs Progressive)",
                 questions: [
-                    { id: 44, q: "44. Complete: \"I was really excited about us sharing a flat but he _____ (not/do) any chores.\"", options: ["don't do", "doesn't do", "isn't doing", "don't does"], answer: 1 },
-                    { id: 45, q: "45. Complete: \"One bathroom _____ (be) spotless because I clean it...\"", options: ["is", "are", "am", "being"], answer: 0 },
-                    { id: 46, q: "46. Complete: \"One bathroom is spotless because I _____ (clean) it but the other one is very dirty.\"", options: ["cleans", "clean", "am cleaning", "cleaned"], answer: 1 },
-                    { id: 47, q: "47. Complete: \"He _____ always _____ (leave) his dirty dishes around the flat.\"", options: ["is / leaving", "does / leave", "is / leaves", "has / left"], answer: 0 },
-                    { id: 48, q: "48. Complete: \"I _____ constantly _____ (clean up).\"", options: ["do / clean up", "am / cleaning up", "is / cleaning up", "have / cleaned up"], answer: 1 },
-                    { id: 49, q: "49. Complete: \"We agreed to take it in turns to do the laundry but he is always busy. I _____ (do) the laundry every week.\"", options: ["am doing", "do", "does", "did"], answer: 1 }
+                    { id: 44, q: "44. Complete: \"I was really excited about us sharing a flat but he _____ (not/do) any chores.\"", options: ["don't do", "doesn't do", "isn't doing", "don't does"], answer: 1, reason: "للتعبير عن عادة متكررة أو وصف سلوك متكرر ومزعج نستخدم المضارع البسيط مع المفرد doesn't do." },
+                    { id: 45, q: "45. Complete: \"One bathroom _____ (be) spotless because I clean it...\"", options: ["is", "are", "am", "being"], answer: 0, reason: "الفاعل (One bathroom) مفرد، والفعل المناسب له في المضارع هو is." },
+                    { id: 46, q: "46. Complete: \"One bathroom is spotless because I _____ (clean) it but the other one is very dirty.\"", options: ["cleans", "clean", "am cleaning", "cleaned"], answer: 1, reason: "مع الضمير I في المضارع البسيط للتعبير عن الروتين نستخدم الفعل بصيغته المجردة (clean)." },
+                    { id: 47, q: "47. Complete: \"He _____ always _____ (leave) his dirty dishes around the flat.\"", options: ["is / leaving", "does / leave", "is / leaves", "has / left"], answer: 0, reason: "استخدام always مع المضارع المستمر (is + verb-ing) يعبر عن الشكوى من عادة مزعجة ومستمرة." },
+                    { id: 48, q: "48. Complete: \"I _____ constantly _____ (clean up).\"", options: ["do / clean up", "am / cleaning up", "is / cleaning up", "have / cleaned up"], answer: 1, reason: "استخدام constantly مع المضارع المستمر (am cleaning up) يعبر عن تكرار مستمر ومزعج." },
+                    { id: 49, q: "49. Complete: \"We agreed to take it in turns to do the laundry but he is always busy. I _____ (do) the laundry every week.\"", options: ["am doing", "do", "does", "did"], answer: 1, reason: "وجود عبارة every week يدل على حقيقة أو عادة في المضارع البسيط مع الضمير I، فنستخدم (do)." }
                 ]
             }
         ];
@@ -436,103 +452,171 @@
             clearInterval(timerInterval);
         }
 
+        function getAllQuestions() {
+            let all = [];
+            quizDataset.forEach(sec => {
+                all = all.concat(sec.questions);
+            });
+            return all;
+        }
+
+        function setFilter(filter) {
+            activeFilter = filter;
+            ['all', 'unanswered', 'flagged'].forEach(f => {
+                const btn = document.getElementById(`filter-${f}`);
+                if (f === filter) {
+                    btn.className = 'filter-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-brand-600 text-white transition';
+                } else {
+                    btn.className = 'filter-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 transition';
+                }
+            });
+            renderQuiz();
+        }
+
         function renderQuiz() {
             const container = document.getElementById('quiz-feed');
             container.innerHTML = '';
 
-            quizDataset.forEach((sectionObj) => {
-                // Section Box Header
-                const sectionHeader = document.createElement('div');
-                sectionHeader.className = 'pt-4 pb-2 border-b-2 border-brand-500/20 flex items-center justify-between';
-                sectionHeader.innerHTML = `
-                    <h2 class="text-base sm:text-lg font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
-                        <span class="w-3 h-3 rounded-full bg-brand-600 inline-block"></span>
-                        <span>${sectionObj.section}</span>
-                    </h2>
-                    <span class="text-xs font-bold text-slate-400">(${sectionObj.questions.length} أسئلة)</span>
-                `;
-                container.appendChild(sectionHeader);
+            quizDataset.forEach((sec, secIdx) => {
+                // Filter questions inside section
+                const visibleQuestions = sec.questions.filter(q => {
+                    const isAnswered = userAnswers.hasOwnProperty(q.id);
+                    const isFlagged = !!flaggedQuestions[q.id];
+                    if (activeFilter === 'unanswered') return !isAnswered;
+                    if (activeFilter === 'flagged') return isFlagged;
+                    return true;
+                });
 
-                // Questions inside section
-                sectionObj.questions.forEach((q) => {
+                if (visibleQuestions.length === 0) return;
+
+                // Section Header Card
+                const secCard = document.createElement('div');
+                secCard.className = 'bg-brand-50 dark:bg-brand-900/20 border border-brand-200 dark:border-brand-800/40 p-4 rounded-2xl flex items-center gap-3 text-brand-900 dark:text-brand-300 font-bold text-sm sm:text-base';
+                secCard.innerHTML = `<i class="fa-solid fa-layer-group text-brand-600 dark:text-brand-400"></i><span>${sec.section}</span>`;
+                container.appendChild(secCard);
+
+                // Render questions inside section
+                visibleQuestions.forEach(q => {
+                    const isAnswered = userAnswers.hasOwnProperty(q.id);
+                    const selectedOpt = userAnswers[q.id];
                     const isFlagged = !!flaggedQuestions[q.id];
 
                     const qCard = document.createElement('div');
                     qCard.id = `q-card-${q.id}`;
-                    qCard.className = `question-card bg-white dark:bg-slate-800 rounded-2xl border ${isFlagged ? 'border-amber-400 bg-amber-50/20 dark:bg-amber-900/10' : 'border-slate-200 dark:border-slate-700'} p-5 sm:p-6 shadow-sm transition scroll-mt-24`;
+                    qCard.className = `bg-white dark:bg-slate-800 p-5 sm:p-6 rounded-2xl border ${isFlagged ? 'border-amber-400 ring-2 ring-amber-400/20' : 'border-slate-200 dark:border-slate-700'} shadow-sm transition-all duration-200 space-y-4`;
 
-                    // Card Header
-                    let headerHtml = `
-                        <div class="flex items-start justify-between gap-4 mb-4">
-                            <div class="flex-1">
-                                <span class="text-xs font-bold text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-900/30 px-2.5 py-1 rounded-md mb-2 inline-block">سؤال #${q.id}</span>
-                                <h3 class="text-base sm:text-lg font-semibold text-slate-900 dark:text-slate-100 en-text">${q.q}</h3>
-                            </div>
-                            <button onclick="toggleFlag(${q.id})" title="تأشير للمراجعة" class="flag-btn text-sm p-2 rounded-lg transition ${isFlagged ? 'bg-amber-100 dark:bg-amber-900/40 text-amber-600 dark:text-amber-400' : 'bg-slate-100 dark:bg-slate-700 text-slate-400 hover:text-amber-500'}">
-                                <i class="fa-solid fa-bookmark"></i>
+                    // Card Top Bar
+                    let topBarHTML = `
+                        <div class="flex items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-700 pb-3">
+                            <span class="text-xs font-bold px-2.5 py-1 rounded-lg ${isAnswered ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300' : 'bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-300'}">
+                                ${isAnswered ? 'تمت الإجابة' : 'لم تتم الإجابة بعد'}
+                            </span>
+                            <button onclick="toggleFlag(${q.id})" class="text-xs font-semibold flex items-center gap-1.5 ${isFlagged ? 'text-amber-500 font-bold' : 'text-slate-400 hover:text-amber-500'} transition">
+                                <i class="fa-${isFlagged ? 'solid' : 'regular'} fa-bookmark"></i>
+                                <span>${isFlagged ? 'مؤشر للمراجعة' : 'تعليم للمراجعة'}</span>
                             </button>
                         </div>
                     `;
 
-                    // Options list
-                    let optionsHtml = `<div class="grid grid-cols-1 gap-3">`;
-                    q.options.forEach((optText, optIdx) => {
-                        const optLetter = String.fromCharCode(65 + optIdx);
-                        const selected = userAnswers[q.id] === optIdx;
+                    // Question Text
+                    let qTextHTML = `
+                        <div class="en-text text-base sm:text-lg font-semibold text-slate-900 dark:text-slate-100 leading-relaxed py-1">
+                            ${q.q}
+                        </div>
+                    `;
 
-                        let cardStyle = "border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-600";
-                        let badgeStyle = "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-600";
+                    // Options Container (VERTICAL STACKING WITH ABCD NEXT TO OPTION TEXT)
+                    let optionsHTML = `<div class="flex flex-col gap-2.5 pt-1">`;
 
-                        if (selected) {
-                            cardStyle = "selected border-brand-600 bg-brand-50/50 dark:bg-brand-900/20";
-                            badgeStyle = "bg-brand-600 text-white border-brand-600";
-                        }
+                    q.options.forEach((opt, optIdx) => {
+                        let btnStyle = "border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800/80 text-slate-800 dark:text-slate-200 hover:border-brand-300 dark:hover:border-brand-600 hover:bg-brand-50/30";
+                        let badgeStyle = "bg-white dark:bg-slate-700 border-slate-200 dark:border-slate-600 text-slate-500 dark:text-slate-300";
+                        let statusIcon = "";
 
-                        // Post-submission styling
                         if (isSubmitted) {
-                            const isCorrectAnswer = q.answer === optIdx;
-                            if (isCorrectAnswer) {
-                                cardStyle = "border-green-500 bg-green-50/80 dark:bg-green-900/20 text-slate-900 dark:text-white font-semibold";
+                            // Graded state
+                            if (optIdx === q.answer) {
+                                btnStyle = "border-green-500 bg-green-50 dark:bg-green-950/30 text-green-900 dark:text-green-200 font-semibold ring-1 ring-green-500";
                                 badgeStyle = "bg-green-600 text-white border-green-600";
-                            } else if (selected && !isCorrectAnswer) {
-                                cardStyle = "border-red-400 bg-red-50/80 dark:bg-red-900/20";
-                                badgeStyle = "bg-red-500 text-white border-red-500";
+                                statusIcon = `<i class="fa-solid fa-circle-check text-green-600 dark:text-green-400 text-lg mr-auto"></i>`;
+                            } else if (selectedOpt === optIdx && selectedOpt !== q.answer) {
+                                btnStyle = "border-red-500 bg-red-50 dark:bg-red-950/30 text-red-900 dark:text-red-200 font-semibold ring-1 ring-red-500";
+                                badgeStyle = "bg-red-600 text-white border-red-600";
+                                statusIcon = `<i class="fa-solid fa-circle-xmark text-red-600 dark:text-red-400 text-lg mr-auto"></i>`;
                             } else {
-                                cardStyle = "border-slate-200 dark:border-slate-700 opacity-60";
+                                btnStyle = "border-slate-200 dark:border-slate-700 opacity-60 bg-slate-50 dark:bg-slate-800/40 text-slate-500 dark:text-slate-400";
+                            }
+                        } else {
+                            // Active quiz state
+                            if (selectedOpt === optIdx) {
+                                btnStyle = "border-brand-600 bg-brand-50 dark:bg-brand-900/30 text-brand-900 dark:text-brand-200 font-semibold ring-2 ring-brand-500/20";
+                                badgeStyle = "bg-brand-600 text-white border-brand-600";
                             }
                         }
 
-                        optionsHtml += `
-                            <button
-                                onclick="selectOption(${q.id}, ${optIdx})"
-                                ${isSubmitted ? 'disabled' : ''}
-                                id="opt-btn-${q.id}-${optIdx}"
-                                class="option-card w-full text-right p-3.5 rounded-xl border text-sm sm:text-base flex items-center gap-3 transition ${cardStyle} ${isSubmitted ? 'disabled cursor-default' : 'cursor-pointer'}">
-                                <span class="w-7 h-7 rounded-lg border flex items-center justify-center font-bold text-xs shrink-0 en-text ${badgeStyle}">
-                                    ${optLetter}
-                                </span>
-                                <span class="flex-1 en-text text-slate-800 dark:text-slate-200">${optText}</span>
-                                ${isSubmitted && q.answer === optIdx ? '<i class="fa-solid fa-circle-check text-green-600 dark:text-green-400 text-lg"></i>' : ''}
-                                ${isSubmitted && selected && q.answer !== optIdx ? '<i class="fa-solid fa-circle-xmark text-red-500 text-lg"></i>' : ''}
+                        const optLetter = String.fromCharCode(65 + optIdx); // A, B, C, D
+
+                        optionsHTML += `
+                            <button onclick="selectOption(${q.id}, ${optIdx})" ${isSubmitted ? 'disabled' : ''} class="option-card w-full p-3.5 sm:p-4 rounded-xl border ${btnStyle} flex items-center gap-3 transition group en-text">
+                                <span class="w-7 h-7 shrink-0 rounded-lg border font-mono text-xs font-bold flex items-center justify-center ${badgeStyle}">${optLetter}</span>
+                                <span class="text-sm sm:text-base flex-1">${opt}</span>
+                                ${statusIcon}
                             </button>
                         `;
                     });
-                    optionsHtml += `</div>`;
 
-                    // Feedback box after submit
-                    let feedbackHtml = '';
+                    optionsHTML += `</div>`;
+
+                    // Answer Correction & Reason Banner
+                    let correctionHTML = '';
                     if (isSubmitted) {
                         const correctLetter = String.fromCharCode(65 + q.answer);
-                        const isCorrect = userAnswers[q.id] === q.answer;
-                        feedbackHtml = `
-                            <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-700 text-xs font-bold ${isCorrect ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'} flex items-center gap-2">
-                                <i class="fa-solid ${isCorrect ? 'fa-check' : 'fa-triangle-exclamation'}"></i>
-                                <span>${isCorrect ? 'إجابة صحيحة!' : `إجابة خاطئة. الإجابة الصحيحة هي: (${correctLetter}) ${q.options[q.answer]}`}</span>
-                            </div>
-                        `;
+                        const correctText = q.options[q.answer];
+                        const reasonText = q.reason || "تم اختيار الإجابة بناءً على قواعد الدرس المقررة.";
+
+                        if (isAnswered) {
+                            if (selectedOpt === q.answer) {
+                                correctionHTML = `
+                                    <div class="mt-3 p-3 rounded-xl bg-green-50 dark:bg-green-950/40 border border-green-200 dark:border-green-800/50 text-xs sm:text-sm text-green-800 dark:text-green-300 font-semibold flex items-center gap-2">
+                                        <i class="fa-solid fa-circle-check text-green-600 dark:text-green-400 text-base"></i>
+                                        <span>إجابة صحيحة! أحسنت.</span>
+                                    </div>
+                                `;
+                            } else {
+                                correctionHTML = `
+                                    <div class="mt-3 p-3 rounded-xl bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-800/50 text-xs sm:text-sm text-red-900 dark:text-red-200 space-y-2">
+                                        <div class="flex items-center gap-2 font-bold text-red-700 dark:text-red-300">
+                                            <i class="fa-solid fa-circle-xmark text-red-600 dark:text-red-400 text-base"></i>
+                                            <span>إجابة خاطئة!</span>
+                                        </div>
+                                        <div class="en-text text-xs sm:text-sm pt-1 border-t border-red-200/60 dark:border-red-800/60 text-slate-800 dark:text-slate-200">
+                                            <strong class="text-slate-900 dark:text-white">Correct Answer:</strong> <span class="font-extrabold text-green-600 dark:text-green-400">(${correctLetter}) ${correctText}</span>
+                                        </div>
+                                        <div class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 pt-1 border-t border-red-200/40 dark:border-red-800/40">
+                                            <strong class="font-bold text-slate-900 dark:text-white">التعليل:</strong> ${reasonText}
+                                        </div>
+                                    </div>
+                                `;
+                            }
+                        } else {
+                            correctionHTML = `
+                                <div class="mt-3 p-3 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/50 text-xs sm:text-sm text-amber-900 dark:text-amber-200 space-y-2">
+                                    <div class="flex items-center gap-2 font-bold text-amber-700 dark:text-amber-300">
+                                        <i class="fa-solid fa-circle-exclamation text-amber-600 dark:text-amber-400 text-base"></i>
+                                        <span>لم تقم بالإجابة على هذا السؤال</span>
+                                    </div>
+                                    <div class="en-text text-xs sm:text-sm pt-1 border-t border-amber-200/60 dark:border-amber-800/60 text-slate-800 dark:text-slate-200">
+                                        <strong class="text-slate-900 dark:text-white">Correct Answer:</strong> <span class="font-extrabold text-green-600 dark:text-green-400">(${correctLetter}) ${correctText}</span>
+                                    </div>
+                                    <div class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 pt-1 border-t border-amber-200/40 dark:border-amber-800/40">
+                                        <strong class="font-bold text-slate-900 dark:text-white">التعليل:</strong> ${reasonText}
+                                    </div>
+                                </div>
+                            `;
+                        }
                     }
 
-                    qCard.innerHTML = headerHtml + optionsHtml + feedbackHtml;
+                    qCard.innerHTML = topBarHTML + qTextHTML + optionsHTML + correctionHTML;
                     container.appendChild(qCard);
                 });
             });
@@ -548,129 +632,122 @@
         }
 
         function toggleFlag(qId) {
+            if (isSubmitted) return;
             flaggedQuestions[qId] = !flaggedQuestions[qId];
             renderQuiz();
-        }
-
-        function updateProgress() {
-            const answeredCount = Object.keys(userAnswers).length;
-            const flaggedCount = Object.values(flaggedQuestions).filter(Boolean).length;
-            const percent = Math.round((answeredCount / totalQuestionsCount) * 100);
-
-            document.getElementById('top-progress-bar').style.width = `${percent}%`;
-            document.getElementById('mobile-progress-bar').style.width = `${percent}%`;
-            document.getElementById('top-progress-text').textContent = `${percent}%`;
-            document.getElementById('palette-progress-text').textContent = `${answeredCount} / ${totalQuestionsCount}`;
-
-            document.getElementById('unanswered-count').textContent = totalQuestionsCount - answeredCount;
-            document.getElementById('flagged-count').textContent = flaggedCount;
         }
 
         function renderPalette() {
             const palette = document.getElementById('question-palette');
             palette.innerHTML = '';
 
-            for (let i = 1; i <= totalQuestionsCount; i++) {
-                const isAns = userAnswers[i] !== undefined;
-                const isFlag = !!flaggedQuestions[i];
+            const allQ = getAllQuestions();
 
-                let btnClass = "bg-slate-100 dark:bg-slate-700/60 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-600 hover:bg-slate-200 dark:hover:bg-slate-600";
+            allQ.forEach(q => {
+                const isAns = userAnswers.hasOwnProperty(q.id);
+                const isFlag = !!flaggedQuestions[q.id];
+                const selectedOpt = userAnswers[q.id];
 
-                if (isAns) {
-                    btnClass = "bg-brand-600 text-white border-brand-600";
-                }
-                if (isFlag) {
-                    btnClass = "bg-amber-400 text-slate-900 border-amber-400 font-bold";
-                }
+                let btnClass = "bg-slate-100 dark:bg-slate-700/80 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600";
 
-                // Post submit styling for palette
                 if (isSubmitted) {
-                    let qObj = null;
-                    quizDataset.forEach(s => {
-                        const found = s.questions.find(q => q.id === i);
-                        if (found) qObj = found;
-                    });
-
-                    if (userAnswers[i] === qObj.answer) {
-                        btnClass = "bg-green-600 text-white border-green-600";
+                    if (isFlag) {
+                        btnClass = "bg-amber-400 text-slate-900 font-bold ring-2 ring-amber-400/40";
+                    } else if (!isAns) {
+                        btnClass = "bg-slate-400 dark:bg-slate-600 text-white font-bold";
+                    } else if (selectedOpt === q.answer) {
+                        btnClass = "bg-green-600 text-white font-bold";
                     } else {
-                        btnClass = "bg-red-500 text-white border-red-500";
+                        btnClass = "bg-red-600 text-white font-bold";
+                    }
+                } else {
+                    if (isFlag) {
+                        btnClass = "bg-amber-400 text-slate-900 font-bold ring-2 ring-amber-400/40";
+                    } else if (isAns) {
+                        btnClass = "bg-brand-600 text-white font-bold";
                     }
                 }
 
                 const btn = document.createElement('button');
-                btn.className = `w-full h-8 rounded-lg border text-xs font-bold transition flex items-center justify-center ${btnClass}`;
-                btn.textContent = i;
-                btn.onclick = () => scrollToQuestion(i);
+                btn.className = `w-full aspect-square rounded-xl text-xs flex items-center justify-center transition ${btnClass}`;
+                btn.textContent = q.id;
+                btn.onclick = () => scrollToQuestion(q.id);
                 palette.appendChild(btn);
+            });
+
+            if (isSubmitted) {
+                document.getElementById('map-legend').innerHTML = `
+                    <div class="flex items-center gap-2">
+                        <span class="w-3 h-3 rounded bg-green-600"></span>
+                        <span>إجابة صحيحة</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="w-3 h-3 rounded bg-red-600"></span>
+                        <span>إجابة خاطئة</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="w-3 h-3 rounded bg-slate-400 dark:bg-slate-600"></span>
+                        <span>غير مجاب</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="w-3 h-3 rounded bg-amber-400"></span>
+                        <span>مؤشر للمراجعة</span>
+                    </div>
+                `;
             }
         }
 
         function scrollToQuestion(qId) {
-            const el = document.getElementById(`q-card-${qId}`);
-            if (el) {
-                el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            if (activeFilter !== 'all') {
+                setFilter('all');
             }
+            setTimeout(() => {
+                const el = document.getElementById(`q-card-${qId}`);
+                if (el) {
+                    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    el.classList.add('ring-2', 'ring-brand-500');
+                    setTimeout(() => el.classList.remove('ring-2', 'ring-brand-500'), 1500);
+                }
+            }, 50);
         }
 
-        function setFilter(type) {
-            activeFilter = type;
-            document.querySelectorAll('.filter-btn').forEach(b => {
-                b.classList.remove('bg-brand-600', 'text-white');
-                b.classList.add('bg-slate-100', 'dark:bg-slate-700', 'text-slate-600', 'dark:text-slate-300');
-            });
+        function updateProgress() {
+            const answeredCount = Object.keys(userAnswers).length;
+            const flaggedCount = Object.values(flaggedQuestions).filter(Boolean).length;
+            const unansweredCount = totalQuestionsCount - answeredCount;
+            const percentage = Math.round((answeredCount / totalQuestionsCount) * 100);
 
-            const activeBtn = document.getElementById(`filter-${type}`);
-            if (activeBtn) {
-                activeBtn.classList.remove('bg-slate-100', 'dark:bg-slate-700', 'text-slate-600', 'dark:text-slate-300');
-                activeBtn.classList.add('bg-brand-600', 'text-white');
-            }
+            document.getElementById('top-progress-bar').style.width = `${percentage}%`;
+            document.getElementById('mobile-progress-bar').style.width = `${percentage}%`;
+            document.getElementById('top-progress-text').textContent = `${percentage}%`;
 
-            for (let i = 1; i <= totalQuestionsCount; i++) {
-                const card = document.getElementById(`q-card-${i}`);
-                if (!card) continue;
-
-                if (type === 'all') {
-                    card.classList.remove('hidden');
-                } else if (type === 'unanswered') {
-                    if (userAnswers[i] === undefined) card.classList.remove('hidden');
-                    else card.classList.add('hidden');
-                } else if (type === 'flagged') {
-                    if (flaggedQuestions[i]) card.classList.remove('hidden');
-                    else card.classList.add('hidden');
-                }
-            }
+            document.getElementById('palette-progress-text').textContent = `${answeredCount} / ${totalQuestionsCount}`;
+            document.getElementById('unanswered-count').textContent = unansweredCount;
+            document.getElementById('flagged-count').textContent = flaggedCount;
         }
 
         function confirmSubmit() {
-            if (isSubmitted) {
-                openResultsModal();
-                return;
-            }
+            const unansweredCount = totalQuestionsCount - Object.keys(userAnswers).length;
+            const modalMsg = document.getElementById('confirm-modal-msg');
 
-            const unanswered = totalQuestionsCount - Object.keys(userAnswers).length;
-            const msgEl = document.getElementById('confirm-modal-msg');
-
-            if (unanswered > 0) {
-                msgEl.innerHTML = `تنبيه: يوجد لديك <strong class="text-red-600 dark:text-red-400">${unanswered} سؤالاً</strong> لم تجب عليها بعد.<br>هل أنت تأكد من التسليم النهائي؟`;
+            if (unansweredCount > 0) {
+                modalMsg.textContent = `لا يزال لديك ${unansweredCount} سؤالاً غير مجاب عليه. هل أنت تأكد من التسليم والتصحيح الآن؟`;
             } else {
-                msgEl.textContent = 'لقد قمت بالإجابة على جميع الأسئلة. هل أنت جاهز لتسليم الاختبار ورؤية النتيجة؟';
+                modalMsg.textContent = "لقد أجبت على جميع الأسئلة! هل أنت جاهز لتسليم الاختبار ومعرفة النتيجة؟";
             }
 
             const modal = document.getElementById('confirm-modal');
             modal.classList.remove('hidden');
             setTimeout(() => {
                 modal.classList.remove('opacity-0');
-                modal.firstElementChild.classList.remove('scale-95');
-                modal.firstElementChild.classList.add('scale-100');
+                modal.children[0].classList.remove('scale-95');
             }, 10);
         }
 
         function closeConfirmModal() {
             const modal = document.getElementById('confirm-modal');
+            modal.children[0].classList.add('scale-95');
             modal.classList.add('opacity-0');
-            modal.firstElementChild.classList.remove('scale-100');
-            modal.firstElementChild.classList.add('scale-95');
             setTimeout(() => modal.classList.add('hidden'), 300);
         }
 
@@ -679,94 +756,100 @@
             stopTimer();
             isSubmitted = true;
 
+            const allQ = getAllQuestions();
             let totalScore = 0;
-            const sectionScores = [];
+            let correctCount = 0;
+            let wrongCount = 0;
+            let unansweredCount = 0;
 
-            quizDataset.forEach(s => {
-                let sCorrect = 0;
-                s.questions.forEach(q => {
+            allQ.forEach(q => {
+                if (userAnswers.hasOwnProperty(q.id)) {
                     if (userAnswers[q.id] === q.answer) {
+                        correctCount++;
                         totalScore++;
-                        sCorrect++;
+                    } else {
+                        wrongCount++;
+                    }
+                } else {
+                    unansweredCount++;
+                }
+            });
+
+            let sectionScores = quizDataset.map(sec => {
+                let secCorrect = 0;
+                sec.questions.forEach(q => {
+                    if (userAnswers[q.id] === q.answer) {
+                        secCorrect++;
                     }
                 });
-                sectionScores.push({
-                    name: s.section,
-                    score: sCorrect,
-                    total: s.questions.length
-                });
+                return {
+                    name: sec.section,
+                    correct: secCorrect,
+                    total: sec.questions.length
+                };
+            });
+
+            const percent = Math.round((totalScore / totalQuestionsCount) * 100);
+            const mins = String(Math.floor(timerSeconds / 60)).padStart(2, '0');
+            const secs = String(timerSeconds % 60).padStart(2, '0');
+
+            document.getElementById('res-score-text').textContent = `${totalScore} / ${totalQuestionsCount}`;
+            document.getElementById('res-percentage-text').textContent = `${percent}%`;
+            document.getElementById('res-time-text').textContent = `${mins}:${secs}`;
+
+            document.getElementById('res-correct-text').textContent = correctCount;
+            document.getElementById('res-wrong-text').textContent = wrongCount;
+            document.getElementById('res-unanswered-text').textContent = unansweredCount;
+
+            const badgeIcon = document.getElementById('result-badge-icon');
+            const statusTitle = document.getElementById('result-status-title');
+
+            if (percent >= 85) {
+                badgeIcon.className = 'w-20 h-20 rounded-3xl flex items-center justify-center mx-auto text-3xl mb-3 shadow-lg bg-emerald-100 text-emerald-600 dark:bg-emerald-900/50 dark:text-emerald-400';
+                badgeIcon.innerHTML = `<i class="fa-solid fa-trophy"></i>`;
+                statusTitle.textContent = 'ممتاز! أداء استثنائي';
+            } else if (percent >= 60) {
+                badgeIcon.className = 'w-20 h-20 rounded-3xl flex items-center justify-center mx-auto text-3xl mb-3 shadow-lg bg-brand-100 text-brand-600 dark:bg-brand-900/50 dark:text-brand-400';
+                badgeIcon.innerHTML = `<i class="fa-solid fa-award"></i>`;
+                statusTitle.textContent = 'عمل جيد! نتيجة حسنة';
+            } else {
+                badgeIcon.className = 'w-20 h-20 rounded-3xl flex items-center justify-center mx-auto text-3xl mb-3 shadow-lg bg-amber-100 text-amber-600 dark:bg-amber-900/50 dark:text-amber-400';
+                badgeIcon.innerHTML = `<i class="fa-solid fa-book-open"></i>`;
+                statusTitle.textContent = 'يحتاج إلى المزيد من المراجعة';
+            }
+
+            const bdContainer = document.getElementById('section-breakdown');
+            bdContainer.innerHTML = '';
+            sectionScores.forEach(sec => {
+                const secPct = Math.round((sec.correct / sec.total) * 100);
+                const row = document.createElement('div');
+                row.className = 'space-y-1';
+                row.innerHTML = `
+                    <div class="flex items-center justify-between text-xs font-bold text-slate-700 dark:text-slate-300">
+                        <span>${sec.name}</span>
+                        <span>${sec.correct} / ${sec.total} (${secPct}%)</span>
+                    </div>
+                    <div class="w-full bg-slate-200 dark:bg-slate-600 h-2 rounded-full overflow-hidden">
+                        <div class="bg-brand-600 h-full rounded-full transition-all duration-500" style="width: ${secPct}%"></div>
+                    </div>
+                `;
+                bdContainer.appendChild(row);
             });
 
             renderQuiz();
-            showResults(totalScore, sectionScores);
-        }
 
-        function showResults(score, sections) {
-            const percentage = Math.round((score / totalQuestionsCount) * 100);
-
-            document.getElementById('res-score-text').textContent = `${score} / ${totalQuestionsCount}`;
-            document.getElementById('res-percentage-text').textContent = `${percentage}%`;
-
-            const mins = String(Math.floor(timerSeconds / 60)).padStart(2, '0');
-            const secs = String(timerSeconds % 60).padStart(2, '0');
-            document.getElementById('res-time-text').textContent = isTimerActive ? `${mins}:${secs}` : 'غير مفعّل';
-
-            const iconBox = document.getElementById('result-badge-icon');
-            const titleEl = document.getElementById('result-status-title');
-            const subEl = document.getElementById('result-status-subtitle');
-
-            if (percentage >= 85) {
-                iconBox.className = "w-20 h-20 rounded-3xl flex items-center justify-center mx-auto text-3xl mb-3 shadow-lg bg-green-100 dark:bg-green-900/40 text-green-600 dark:text-green-400 shadow-green-500/20";
-                iconBox.innerHTML = '<i class="fa-solid fa-trophy"></i>';
-                titleEl.textContent = "ممتاز! أداء استثنائي 🏆";
-                subEl.textContent = "لقد أجبت على معظم الأسئلة بشكل صحيح وتفوقت بامتياز!";
-            } else if (percentage >= 60) {
-                iconBox.className = "w-20 h-20 rounded-3xl flex items-center justify-center mx-auto text-3xl mb-3 shadow-lg bg-brand-100 dark:bg-brand-900/40 text-brand-600 dark:text-brand-400 shadow-brand-500/20";
-                iconBox.innerHTML = '<i class="fa-solid fa-star"></i>';
-                titleEl.textContent = "أحسنت! نتيجة جيدة جداً 👍";
-                subEl.textContent = "أداؤك جيد، ويمكنك مراجعة الأخطاء البسيطة لرفع نتيجتك للعلامة الكاملة.";
-            } else {
-                iconBox.className = "w-20 h-20 rounded-3xl flex items-center justify-center mx-auto text-3xl mb-3 shadow-lg bg-amber-100 dark:bg-amber-900/40 text-amber-600 dark:text-amber-400 shadow-amber-500/20";
-                iconBox.innerHTML = '<i class="fa-solid fa-arrow-trend-up"></i>';
-                titleEl.textContent = "تحتاج للمزيد من التدريب 💪";
-                subEl.textContent = "راجع الإجابات الخاطئة وأعد الاختبار مرة أخرى لتحسين مستواك.";
-            }
-
-            const secContainer = document.getElementById('section-breakdown');
-            secContainer.innerHTML = '';
-            sections.forEach(sec => {
-                const secPct = Math.round((sec.score / sec.total) * 100);
-                secContainer.innerHTML += `
-                    <div>
-                        <div class="flex justify-between text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
-                            <span>${sec.name}</span>
-                            <span>${sec.score} / ${sec.total} (${secPct}%)</span>
-                        </div>
-                        <div class="w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
-                            <div class="bg-brand-600 h-full rounded-full" style="width: ${secPct}%"></div>
-                        </div>
-                    </div>
-                `;
-            });
-
-            openResultsModal();
-        }
-
-        function openResultsModal() {
-            const modal = document.getElementById('results-modal');
-            modal.classList.remove('hidden');
+            const resModal = document.getElementById('results-modal');
+            resModal.classList.remove('hidden');
             setTimeout(() => {
-                modal.classList.remove('opacity-0');
-                modal.firstElementChild.classList.remove('scale-95');
-                modal.firstElementChild.classList.add('scale-100');
+                resModal.classList.remove('opacity-0');
+                resModal.children[0].classList.remove('scale-95');
             }, 10);
         }
 
         function closeResultsModal() {
             const modal = document.getElementById('results-modal');
+            modal.children[0].classList.add('scale-95');
             modal.classList.add('opacity-0');
-            modal.firstElementChild.classList.remove('scale-100');
-            modal.firstElementChild.classList.add('scale-95');
             setTimeout(() => modal.classList.add('hidden'), 300);
         }
 
@@ -775,17 +858,32 @@
             userAnswers = {};
             flaggedQuestions = {};
             isSubmitted = false;
-            setFilter('all');
-            renderQuiz();
+            timerSeconds = 0;
+            document.getElementById('timer-display').textContent = '00:00';
+
+            document.getElementById('map-legend').innerHTML = `
+                <div class="flex items-center gap-2">
+                    <span class="w-3 h-3 rounded bg-slate-100 dark:bg-slate-700 border border-slate-300 dark:border-slate-600"></span>
+                    <span>لم تُحل بعد</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="w-3 h-3 rounded bg-brand-600 text-white"></span>
+                    <span>تمت الإجابة</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="w-3 h-3 rounded bg-amber-400"></span>
+                    <span>مؤشر للمراجعة</span>
+                </div>
+            `;
+
             startTimer();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            setFilter('all');
         }
 
-        // Initialize App
-        document.addEventListener('DOMContentLoaded', () => {
+        window.onload = () => {
             renderQuiz();
             startTimer();
-        });
+        };
     </script>
 </body>
 </html>
