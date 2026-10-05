@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مراجعة اختبار اللغة الانجليزية الوحدة الاولى</title>
+    <title>بنوك مراجعة اللغة الانجليزية</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts -->
@@ -74,64 +74,120 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16 gap-3">
 
-                <!-- Logo & Title -->
+                <!-- Right Side Logo & Title (جهـة اليمين) -->
                 <div class="flex items-center space-x-3 space-x-reverse shrink-0">
                     <div class="w-10 h-10 rounded-xl bg-brand-600 text-white flex items-center justify-center font-bold text-lg shadow-md shadow-brand-500/20">
                         <i class="fa-solid fa-graduation-cap"></i>
                     </div>
                     <div>
-                        <h1 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white leading-tight">مراجعة اختبار اللغة الانجليزية الوحدة الاولى</h1>
+                        <h1 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white leading-tight">بنوك مراجعة اللغة الانجليزية</h1>
                         <p class="text-xs text-slate-500 dark:text-slate-400">شعب/303-302-301</p>
                     </div>
                 </div>
 
-                <!-- Controls & Stats -->
-                <div class="flex items-center gap-2 sm:gap-4">
+                <!-- Left Controls Container -->
+                <div class="flex items-center gap-2 sm:gap-3 overflow-x-auto py-1" dir="ltr">
 
-                    <!-- Dark Mode Toggle Button -->
-                    <button onclick="toggleDarkMode()" id="theme-toggle" title="تغيير المظهر" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-amber-400 hover:bg-slate-200 dark:hover:bg-slate-600 transition flex items-center justify-center">
+                    <!-- 1. Home View Button -->
+                    <button onclick="showHomeView()" title="الصفحة الرئيسية واختيار المواضيع" class="p-2 sm:px-3 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-600 transition flex items-center gap-1.5 text-xs font-bold shrink-0" dir="rtl">
+                        <i class="fa-solid fa-house"></i>
+                        <span class="hidden md:inline">الرئيسية والمواضيع</span>
+                    </button>
+
+                    <!-- 2. Question Map Toggle Button -->
+                    <button id="map-toggle-btn" onclick="toggleQuestionMap()" title="إخفاء/إظهار الخريطة" class="hidden p-2 sm:px-3 rounded-xl bg-brand-50 dark:bg-brand-900/40 text-brand-600 dark:text-brand-300 border border-brand-200 dark:border-brand-800 hover:bg-brand-100 transition items-center gap-1.5 text-xs font-bold shrink-0" dir="rtl">
+                        <i id="map-toggle-icon" class="fa-solid fa-map"></i>
+                        <span id="map-toggle-text" class="hidden sm:inline">إخفاء الخريطة</span>
+                    </button>
+
+                    <!-- 3. Dark Mode Toggle Button -->
+                    <button onclick="toggleDarkMode()" id="theme-toggle" title="تغيير المظهر" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-amber-400 hover:bg-slate-200 dark:hover:bg-slate-600 transition flex items-center justify-center shrink-0">
                         <i id="theme-icon" class="fa-solid fa-moon text-base"></i>
                     </button>
 
-                    <!-- Question Map Toggle Button (Top Bar) -->
-                    <button id="map-toggle-btn" onclick="toggleQuestionMap()" title="إخفاء/إظهار الخريطة" class="p-2 sm:px-3 rounded-xl bg-brand-50 dark:bg-brand-900/40 text-brand-600 dark:text-brand-300 border border-brand-200 dark:border-brand-800 hover:bg-brand-100 transition flex items-center gap-1.5 text-xs font-bold">
-                        <i id="map-toggle-icon" class="fa-solid fa-map"></i>
-                        <span id="map-toggle-text" class="text-xs">إخفاء الخريطة</span>
-                    </button>
-
-                    <!-- Timer Badge & Toggle Button -->
-                    <div id="timer-badge" class="flex items-center gap-2 bg-slate-100 dark:bg-slate-700/80 text-slate-700 dark:text-slate-200 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-600 font-semibold text-xs sm:text-sm transition">
+                    <!-- 4. Timer Badge & Toggle Button -->
+                    <div id="timer-badge" class="hidden items-center gap-2 bg-slate-100 dark:bg-slate-700/80 text-slate-700 dark:text-slate-200 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-600 font-semibold text-xs sm:text-sm transition shrink-0" dir="ltr">
                         <button onclick="toggleTimer()" title="تفعيل/إيقاف المؤقت" class="text-brand-600 dark:text-brand-400 hover:scale-110 transition focus:outline-none">
                             <i id="timer-toggle-icon" class="fa-solid fa-circle-pause"></i>
                         </button>
                         <span id="timer-display" class="font-mono">00:00</span>
                     </div>
 
-                    <!-- Top Progress Indicator (Desktop) -->
-                    <div class="hidden lg:flex items-center gap-2 w-36">
-                        <div class="flex-1 bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
-                            <div id="top-progress-bar" class="bg-brand-600 h-full w-0 transition-all duration-300"></div>
+                    <!-- 5. Progress Bar in Top Header -->
+                    <div id="header-progress-container" class="hidden items-center gap-2 bg-slate-100 dark:bg-slate-700/80 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-600 shrink-0 w-28 sm:w-36" dir="rtl">
+                        <div class="w-full bg-slate-200 dark:bg-slate-600 h-2 rounded-full overflow-hidden flex-1">
+                            <div id="quiz-progress-bar" class="bg-brand-600 h-full w-0 transition-all duration-300"></div>
                         </div>
-                        <span id="top-progress-text" class="text-xs font-bold text-slate-500 dark:text-slate-400">0%</span>
+                        <span id="quiz-progress-percent" class="text-brand-600 dark:text-brand-400 font-extrabold font-mono text-xs shrink-0">0%</span>
                     </div>
 
-                    <!-- Submit Action Button -->
-                    <button onclick="confirmSubmit()" class="bg-brand-600 hover:bg-brand-700 text-white px-3 sm:px-4 py-2 rounded-xl font-bold text-xs sm:text-sm shadow-sm transition flex items-center gap-2">
-                        <i class="fa-solid fa-paper-plane"></i>
-                        <span class="hidden sm:inline">إنهاء وتصحيح</span>
-                    </button>
                 </div>
 
             </div>
         </div>
-        <!-- Mobile Progress Bar -->
-        <div class="w-full bg-slate-200 dark:bg-slate-700 h-1 lg:hidden">
-            <div id="mobile-progress-bar" class="bg-brand-600 h-full w-0 transition-all duration-300"></div>
-        </div>
     </header>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 w-full">
-        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 items-start">
+
+        <!-- ================= HOME SCREEN (SECTION SELECTION) ================= -->
+        <section id="home-view" class="max-w-4xl mx-auto space-y-6">
+
+            <!-- Hero Header Card -->
+            <div class="bg-gradient-to-r from-brand-600 to-brand-800 rounded-3xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden">
+                <div class="relative z-10 space-y-3">
+                    <h2 class="text-2xl sm:text-3xl font-extrabold leading-tight">
+مراجعة اختبار اللغة الانجليزية الوحدة الاولى</h2>
+                    <p class="text-brand-100 text-sm sm:text-base max-w-2xl leading-relaxed">اختر المواضيع والأقسام التي تريد الاختيار منها لاختبار نفسك.</p>
+                </div>
+                <div class="absolute -left-10 -bottom-10 opacity-10 text-9xl font-black pointer-events-none select-none">
+                    <i class="fa-solid fa-list-check"></i>
+                </div>
+            </div>
+
+            <!-- Topic Selection Controls Card -->
+            <div class="bg-white dark:bg-slate-800 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700 shadow-sm space-y-6">
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-slate-100 dark:border-slate-700">
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                            <i class="fa-solid fa-sliders text-brand-600 dark:text-brand-400"></i>
+                            <span>أقسام الاختبار المتاحة</span>
+                        </h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">قم بتحديد قسم واحد أو أكثر لبدء الاختبار</p>
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                        <button onclick="selectAllSections(true)" class="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 text-xs font-bold transition">
+                            تحديد الكل
+                        </button>
+                        <button onclick="selectAllSections(false)" class="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 text-xs font-bold transition">
+                            إلغاء الكل
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Sections Grid List -->
+                <div id="topics-list-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Dynamic topic cards injected via JS -->
+                </div>
+
+                <!-- Total Selected Summary & Start Exam Button -->
+                <div class="pt-4 border-t border-slate-100 dark:border-slate-700 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div class="text-sm font-semibold text-slate-700 dark:text-slate-300">
+                        مجموع الأسئلة المختارة: <span id="home-total-questions-count" class="font-extrabold text-brand-600 dark:text-brand-400 text-base">0</span> سؤال
+                    </div>
+
+                    <button id="start-exam-btn" onclick="startSelectedQuiz()" class="w-full sm:w-auto bg-brand-600 hover:bg-brand-700 text-white font-bold px-8 py-3.5 rounded-2xl shadow-lg shadow-brand-500/25 transition transform hover:-translate-y-0.5 flex items-center justify-center gap-2 text-base">
+                        <i class="fa-solid fa-play"></i>
+                        <span>ابدأ الاختبار الآن</span>
+                    </button>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- ================= QUIZ SCREEN ================= -->
+        <div id="quiz-view" class="hidden grid grid-cols-1 lg:grid-cols-4 gap-6 items-start">
 
             <!-- Question Navigation Map (Right Side in RTL) -->
             <aside id="map-aside" class="lg:col-span-1 lg:sticky lg:top-24 space-y-6 transition-all duration-500 ease-in-out transform">
@@ -141,7 +197,7 @@
                             <i class="fa-solid fa-border-all text-brand-600 dark:text-brand-400"></i>
                             <span>خريطة الأسئلة</span>
                         </h3>
-                        <span class="text-xs font-semibold px-2.5 py-1 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-full" id="palette-progress-text">0 / 49</span>
+                        <span class="text-xs font-semibold px-2.5 py-1 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-full" id="palette-progress-text">0 / 0</span>
                     </div>
 
                     <!-- Question Grid Navigation -->
@@ -171,24 +227,18 @@
             <main id="main-content" class="lg:col-span-3 space-y-6 transition-all duration-500 ease-in-out transform origin-top">
 
                 <!-- Filter Banner -->
-                <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm flex flex-wrap items-center justify-between gap-4 transition-colors">
+                <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm flex items-center justify-between gap-4 transition-colors">
                     <!-- Filter Buttons -->
-                    <div class="flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0 w-full sm:w-auto">
+                    <div class="flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0 w-full">
                         <button onclick="setFilter('all')" id="filter-all" class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-brand-600 text-white transition">
-                            جميع الأسئلة (49)
+                            جميع الأسئلة (<span id="all-count">0</span>)
                         </button>
                         <button onclick="setFilter('unanswered')" id="filter-unanswered" class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 transition">
-                            غير المحلولة (<span id="unanswered-count">49</span>)
+                            غير المحلولة (<span id="unanswered-count">0</span>)
                         </button>
                         <button onclick="setFilter('flagged')" id="filter-flagged" class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 transition">
                             المعلمة بالمراجعة (<span id="flagged-count">0</span>)
                         </button>
-                    </div>
-
-                    <!-- Auto-save note -->
-                    <div class="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-2">
-                        <i class="fa-solid fa-cloud-arrow-up text-brand-500"></i>
-                        <span>تتم حفظ إجاباتك تلقائياً</span>
                     </div>
                 </div>
 
@@ -244,14 +294,14 @@
                     <!-- Icon injected -->
                 </div>
                 <h3 id="result-status-title" class="text-2xl font-extrabold text-slate-900 dark:text-white">اكتمل الاختبار!</h3>
-                <p id="result-status-subtitle" class="text-sm text-slate-500 dark:text-slate-400 mt-1">إليك تفاصيل أدائك في الاختبار الشامل</p>
+                <p id="result-status-subtitle" class="text-sm text-slate-500 dark:text-slate-400 mt-1">إليك تفاصيل أدائك في الاختبار للمواضيع المحددة</p>
             </div>
 
             <!-- Main Score Cards Row -->
             <div class="grid grid-cols-3 gap-3 sm:gap-4 mb-3">
                 <div class="bg-slate-50 dark:bg-slate-700/50 p-4 rounded-2xl border border-slate-100 dark:border-slate-700 text-center">
                     <span class="text-xs text-slate-500 dark:text-slate-400 font-bold block mb-1">النتيجة الكلية</span>
-                    <span id="res-score-text" class="text-xl sm:text-2xl font-extrabold text-brand-600 dark:text-brand-400">0 / 49</span>
+                    <span id="res-score-text" class="text-xl sm:text-2xl font-extrabold text-brand-600 dark:text-brand-400">0 / 0</span>
                 </div>
                 <div class="bg-slate-50 dark:bg-slate-700/50 p-4 rounded-2xl border border-slate-100 dark:border-slate-700 text-center">
                     <span class="text-xs text-slate-500 dark:text-slate-400 font-bold block mb-1">النسبة المئوية</span>
@@ -281,7 +331,7 @@
 
             <!-- Section-wise Breakdown -->
             <div class="space-y-3 mb-6 bg-slate-50 dark:bg-slate-700/40 p-4 rounded-2xl border border-slate-100 dark:border-slate-700">
-                <h4 class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">تفاصيل النتيجة حسب الأقسام:</h4>
+                <h4 class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">تفاصيل النتيجة حسب الأقسام المختارة:</h4>
                 <div id="section-breakdown" class="space-y-2">
                     <!-- Section score bars injected here -->
                 </div>
@@ -377,8 +427,10 @@
         ];
 
         // Global State Variables
-        let userAnswers = {};      // { questionId: optionIndex }
-        let flaggedQuestions = {}; // { questionId: boolean }
+        let selectedSectionIndices = [0, 1, 2, 3]; // All selected by default initially
+        let activeQuestions = [];                   // Processed & re-indexed question list
+        let userAnswers = {};                      // { displayIndex: optionIndex }
+        let flaggedQuestions = {};                 // { displayIndex: boolean }
         let isSubmitted = false;
         let timerSeconds = 0;
         let timerInterval = null;
@@ -386,8 +438,6 @@
         let isDarkMode = false;
         let isMapVisible = true;
         let activeFilter = 'all';
-
-        const totalQuestionsCount = 49;
 
         function toggleDarkMode() {
             isDarkMode = !isDarkMode;
@@ -429,21 +479,19 @@
 
             if (isMapVisible) {
                 mapAside.classList.remove('hidden');
-                // Size shrinks back smoothly to 3 columns to fit map
                 mainContent.className = 'lg:col-span-3 space-y-6 transition-all duration-500 ease-in-out transform scale-100 origin-top';
                 mapText.textContent = 'إخفاء الخريطة';
                 mapIcon.className = 'fa-solid fa-map';
                 if (mapBtn) {
-                    mapBtn.className = 'p-2 sm:px-3 rounded-xl bg-brand-50 dark:bg-brand-900/40 text-brand-600 dark:text-brand-300 border border-brand-200 dark:border-brand-800 hover:bg-brand-100 transition flex items-center gap-1.5 text-xs font-bold';
+                    mapBtn.className = 'p-2 sm:px-3 rounded-xl bg-brand-50 dark:bg-brand-900/40 text-brand-600 dark:text-brand-300 border border-brand-200 dark:border-brand-800 hover:bg-brand-100 transition flex items-center gap-1.5 text-xs font-bold shrink-0';
                 }
             } else {
                 mapAside.classList.add('hidden');
-                // Size expands and enlarges smoothly to fill full 4 columns
                 mainContent.className = 'lg:col-span-4 space-y-6 transition-all duration-500 ease-in-out transform scale-[1.01] origin-top';
                 mapText.textContent = 'إظهار الخريطة';
                 mapIcon.className = 'fa-solid fa-map-location-dot';
                 if (mapBtn) {
-                    mapBtn.className = 'p-2 sm:px-3 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-600 transition flex items-center gap-1.5 text-xs font-bold';
+                    mapBtn.className = 'p-2 sm:px-3 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-600 transition flex items-center gap-1.5 text-xs font-bold shrink-0';
                 }
             }
         }
@@ -464,12 +512,133 @@
             clearInterval(timerInterval);
         }
 
-        function getAllQuestions() {
-            let all = [];
-            quizDataset.forEach(sec => {
-                all = all.concat(sec.questions);
+        function getCleanQuestionText(qStr) {
+            return qStr.replace(/^\d+[\.\)]\s*/, '');
+        }
+
+        function renderHomeView() {
+            const container = document.getElementById('topics-list-container');
+            container.innerHTML = '';
+
+            let totalCount = 0;
+
+            quizDataset.forEach((sec, idx) => {
+                const isSelected = selectedSectionIndices.includes(idx);
+                const count = sec.questions.length;
+                if (isSelected) totalCount += count;
+
+                const card = document.createElement('div');
+                card.className = `p-4 sm:p-5 rounded-2xl border cursor-pointer transition-all flex items-center justify-between gap-3 ${
+                    isSelected
+                        ? 'bg-brand-50/70 dark:bg-brand-900/30 border-brand-500 ring-2 ring-brand-500/20'
+                        : 'bg-slate-50 dark:bg-slate-700/30 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600'
+                }`;
+                card.onclick = () => toggleSectionSelection(idx);
+
+                card.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <div class="w-6 h-6 rounded-lg border flex items-center justify-center transition ${
+                            isSelected
+                                ? 'bg-brand-600 border-brand-600 text-white'
+                                : 'bg-white dark:bg-slate-700 border-slate-300 dark:border-slate-600 text-transparent'
+                        }">
+                            <i class="fa-solid fa-check text-xs"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-sm sm:text-base text-slate-900 dark:text-white">${sec.section}</h4>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">${count} سؤالاً متاحة</p>
+                        </div>
+                    </div>
+                    <span class="px-2.5 py-1 rounded-xl text-xs font-extrabold ${isSelected ? 'bg-brand-100 dark:bg-brand-800/50 text-brand-700 dark:text-brand-300' : 'bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-400'}">
+                        ${count} أسئلة
+                    </span>
+                `;
+
+                container.appendChild(card);
             });
-            return all;
+
+            document.getElementById('home-total-questions-count').textContent = totalCount;
+
+            const startBtn = document.getElementById('start-exam-btn');
+            if (totalCount === 0) {
+                startBtn.disabled = true;
+                startBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            } else {
+                startBtn.disabled = false;
+                startBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+        }
+
+        function toggleSectionSelection(idx) {
+            if (selectedSectionIndices.includes(idx)) {
+                selectedSectionIndices = selectedSectionIndices.filter(i => i !== idx);
+            } else {
+                selectedSectionIndices.push(idx);
+                selectedSectionIndices.sort((a, b) => a - b);
+            }
+            renderHomeView();
+        }
+
+        function selectAllSections(select) {
+            if (select) {
+                selectedSectionIndices = quizDataset.map((_, i) => i);
+            } else {
+                selectedSectionIndices = [];
+            }
+            renderHomeView();
+        }
+
+        function showHomeView() {
+            document.getElementById('home-view').classList.remove('hidden');
+            document.getElementById('quiz-view').classList.add('hidden');
+
+            const headerProgress = document.getElementById('header-progress-container');
+            const mapBtn = document.getElementById('map-toggle-btn');
+            const timerBadge = document.getElementById('timer-badge');
+
+            if (headerProgress) { headerProgress.classList.add('hidden'); headerProgress.classList.remove('flex'); }
+            if (mapBtn) { mapBtn.classList.add('hidden'); mapBtn.classList.remove('flex'); }
+            if (timerBadge) { timerBadge.classList.add('hidden'); timerBadge.classList.remove('flex'); }
+
+            renderHomeView();
+        }
+
+        function startSelectedQuiz() {
+            if (selectedSectionIndices.length === 0) return;
+
+            activeQuestions = [];
+            let currentDisplayNum = 1;
+
+            selectedSectionIndices.forEach(sIdx => {
+                const sec = quizDataset[sIdx];
+                sec.questions.forEach(q => {
+                    activeQuestions.push({
+                        ...q,
+                        sectionName: sec.section,
+                        displayIndex: currentDisplayNum++
+                    });
+                });
+            });
+
+            userAnswers = {};
+            flaggedQuestions = {};
+            isSubmitted = false;
+            timerSeconds = 0;
+            document.getElementById('timer-display').textContent = '00:00';
+
+            const headerProgress = document.getElementById('header-progress-container');
+            const mapBtn = document.getElementById('map-toggle-btn');
+            const timerBadge = document.getElementById('timer-badge');
+
+            if (headerProgress) { headerProgress.classList.remove('hidden'); headerProgress.classList.add('flex'); }
+            if (mapBtn) { mapBtn.classList.remove('hidden'); mapBtn.classList.add('flex'); }
+            if (timerBadge) { timerBadge.classList.remove('hidden'); timerBadge.classList.add('flex'); }
+
+            document.getElementById('home-view').classList.add('hidden');
+            document.getElementById('quiz-view').classList.remove('hidden');
+
+            startTimer();
+            setFilter('all');
         }
 
         function setFilter(filter) {
@@ -489,11 +658,20 @@
             const container = document.getElementById('quiz-feed');
             container.innerHTML = '';
 
-            quizDataset.forEach((sec, secIdx) => {
-                // Filter questions inside section
+            let groupedSections = [];
+            activeQuestions.forEach(q => {
+                let secObj = groupedSections.find(s => s.name === q.sectionName);
+                if (!secObj) {
+                    secObj = { name: q.sectionName, questions: [] };
+                    groupedSections.push(secObj);
+                }
+                secObj.questions.push(q);
+            });
+
+            groupedSections.forEach(sec => {
                 const visibleQuestions = sec.questions.filter(q => {
-                    const isAnswered = userAnswers.hasOwnProperty(q.id);
-                    const isFlagged = !!flaggedQuestions[q.id];
+                    const isAnswered = userAnswers.hasOwnProperty(q.displayIndex);
+                    const isFlagged = !!flaggedQuestions[q.displayIndex];
                     if (activeFilter === 'unanswered') return !isAnswered;
                     if (activeFilter === 'flagged') return isFlagged;
                     return true;
@@ -501,43 +679,39 @@
 
                 if (visibleQuestions.length === 0) return;
 
-                // Section Header Card
                 const secCard = document.createElement('div');
                 secCard.className = 'bg-brand-50 dark:bg-brand-900/20 border border-brand-200 dark:border-brand-800/40 p-4 rounded-2xl flex items-center gap-3 text-brand-900 dark:text-brand-300 font-bold text-sm sm:text-base';
-                secCard.innerHTML = `<i class="fa-solid fa-layer-group text-brand-600 dark:text-brand-400"></i><span>${sec.section}</span>`;
+                secCard.innerHTML = `<i class="fa-solid fa-layer-group text-brand-600 dark:text-brand-400"></i><span>${sec.name}</span>`;
                 container.appendChild(secCard);
 
-                // Render questions inside section
                 visibleQuestions.forEach(q => {
-                    const isAnswered = userAnswers.hasOwnProperty(q.id);
-                    const selectedOpt = userAnswers[q.id];
-                    const isFlagged = !!flaggedQuestions[q.id];
+                    const isAnswered = userAnswers.hasOwnProperty(q.displayIndex);
+                    const selectedOpt = userAnswers[q.displayIndex];
+                    const isFlagged = !!flaggedQuestions[q.displayIndex];
 
                     const qCard = document.createElement('div');
-                    qCard.id = `q-card-${q.id}`;
+                    qCard.id = `q-card-${q.displayIndex}`;
                     qCard.className = `bg-white dark:bg-slate-800 p-5 sm:p-6 rounded-2xl border ${isFlagged ? 'border-amber-400 ring-2 ring-amber-400/20' : 'border-slate-200 dark:border-slate-700'} shadow-sm transition-all duration-200 space-y-4`;
 
-                    // Card Top Bar
                     let topBarHTML = `
                         <div class="flex items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-700 pb-3">
                             <span class="text-xs font-bold px-2.5 py-1 rounded-lg ${isAnswered ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300' : 'bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-300'}">
                                 ${isAnswered ? 'تمت الإجابة' : 'لم تتم الإجابة بعد'}
                             </span>
-                            <button onclick="toggleFlag(${q.id})" class="text-xs font-semibold flex items-center gap-1.5 ${isFlagged ? 'text-amber-500 font-bold' : 'text-slate-400 hover:text-amber-500'} transition">
+                            <button onclick="toggleFlag(${q.displayIndex})" class="text-xs font-semibold flex items-center gap-1.5 ${isFlagged ? 'text-amber-500 font-bold' : 'text-slate-400 hover:text-amber-500'} transition">
                                 <i class="fa-${isFlagged ? 'solid' : 'regular'} fa-bookmark"></i>
                                 <span>${isFlagged ? 'مؤشر للمراجعة' : 'تعليم للمراجعة'}</span>
                             </button>
                         </div>
                     `;
 
-                    // Question Text
+                    const cleanText = getCleanQuestionText(q.q);
                     let qTextHTML = `
                         <div class="en-text text-base sm:text-lg font-semibold text-slate-900 dark:text-slate-100 leading-relaxed py-1">
-                            ${q.q}
+                            <span class="font-bold text-brand-600 dark:text-brand-400 font-mono pl-1">${q.displayIndex}.</span> ${cleanText}
                         </div>
                     `;
 
-                    // Options Container (VERTICAL STACKING WITH ABCD NEXT TO OPTION TEXT)
                     let optionsHTML = `<div class="flex flex-col gap-2.5 pt-1">`;
 
                     q.options.forEach((opt, optIdx) => {
@@ -546,7 +720,6 @@
                         let statusIcon = "";
 
                         if (isSubmitted) {
-                            // Graded state
                             if (optIdx === q.answer) {
                                 btnStyle = "border-green-500 bg-green-50 dark:bg-green-950/30 text-green-900 dark:text-green-200 font-semibold ring-1 ring-green-500";
                                 badgeStyle = "bg-green-600 text-white border-green-600";
@@ -559,17 +732,16 @@
                                 btnStyle = "border-slate-200 dark:border-slate-700 opacity-60 bg-slate-50 dark:bg-slate-800/40 text-slate-500 dark:text-slate-400";
                             }
                         } else {
-                            // Active quiz state
                             if (selectedOpt === optIdx) {
                                 btnStyle = "border-brand-600 bg-brand-50 dark:bg-brand-900/30 text-brand-900 dark:text-brand-200 font-semibold ring-2 ring-brand-500/20";
                                 badgeStyle = "bg-brand-600 text-white border-brand-600";
                             }
                         }
 
-                        const optLetter = String.fromCharCode(65 + optIdx); // A, B, C, D
+                        const optLetter = String.fromCharCode(65 + optIdx);
 
                         optionsHTML += `
-                            <button onclick="selectOption(${q.id}, ${optIdx})" ${isSubmitted ? 'disabled' : ''} class="option-card w-full p-3.5 sm:p-4 rounded-xl border ${btnStyle} flex items-center gap-3 transition group en-text">
+                            <button onclick="selectOption(${q.displayIndex}, ${optIdx})" ${isSubmitted ? 'disabled' : ''} class="option-card w-full p-3.5 sm:p-4 rounded-xl border ${btnStyle} flex items-center gap-3 transition group en-text">
                                 <span class="w-7 h-7 shrink-0 rounded-lg border font-mono text-xs font-bold flex items-center justify-center ${badgeStyle}">${optLetter}</span>
                                 <span class="text-sm sm:text-base flex-1">${opt}</span>
                                 ${statusIcon}
@@ -579,7 +751,6 @@
 
                     optionsHTML += `</div>`;
 
-                    // Answer Correction & Reason Banner
                     let correctionHTML = '';
                     if (isSubmitted) {
                         const correctLetter = String.fromCharCode(65 + q.answer);
@@ -637,15 +808,15 @@
             renderPalette();
         }
 
-        function selectOption(qId, optIdx) {
+        function selectOption(displayIdx, optIdx) {
             if (isSubmitted) return;
-            userAnswers[qId] = optIdx;
+            userAnswers[displayIdx] = optIdx;
             renderQuiz();
         }
 
-        function toggleFlag(qId) {
+        function toggleFlag(displayIdx) {
             if (isSubmitted) return;
-            flaggedQuestions[qId] = !flaggedQuestions[qId];
+            flaggedQuestions[displayIdx] = !flaggedQuestions[displayIdx];
             renderQuiz();
         }
 
@@ -653,12 +824,10 @@
             const palette = document.getElementById('question-palette');
             palette.innerHTML = '';
 
-            const allQ = getAllQuestions();
-
-            allQ.forEach(q => {
-                const isAns = userAnswers.hasOwnProperty(q.id);
-                const isFlag = !!flaggedQuestions[q.id];
-                const selectedOpt = userAnswers[q.id];
+            activeQuestions.forEach(q => {
+                const isAns = userAnswers.hasOwnProperty(q.displayIndex);
+                const isFlag = !!flaggedQuestions[q.displayIndex];
+                const selectedOpt = userAnswers[q.displayIndex];
 
                 let btnClass = "bg-slate-100 dark:bg-slate-700/80 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600";
 
@@ -682,8 +851,8 @@
 
                 const btn = document.createElement('button');
                 btn.className = `w-full aspect-square rounded-xl text-xs flex items-center justify-center transition ${btnClass}`;
-                btn.textContent = q.id;
-                btn.onclick = () => scrollToQuestion(q.id);
+                btn.textContent = q.displayIndex;
+                btn.onclick = () => scrollToQuestion(q.displayIndex);
                 palette.appendChild(btn);
             });
 
@@ -709,12 +878,12 @@
             }
         }
 
-        function scrollToQuestion(qId) {
+        function scrollToQuestion(displayIdx) {
             if (activeFilter !== 'all') {
                 setFilter('all');
             }
             setTimeout(() => {
-                const el = document.getElementById(`q-card-${qId}`);
+                const el = document.getElementById(`q-card-${displayIdx}`);
                 if (el) {
                     el.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     el.classList.add('ring-2', 'ring-brand-500');
@@ -724,22 +893,27 @@
         }
 
         function updateProgress() {
+            const totalActive = activeQuestions.length;
             const answeredCount = Object.keys(userAnswers).length;
             const flaggedCount = Object.values(flaggedQuestions).filter(Boolean).length;
-            const unansweredCount = totalQuestionsCount - answeredCount;
-            const percentage = Math.round((answeredCount / totalQuestionsCount) * 100);
+            const unansweredCount = totalActive - answeredCount;
+            const percentage = totalActive > 0 ? Math.round((answeredCount / totalActive) * 100) : 0;
 
-            document.getElementById('top-progress-bar').style.width = `${percentage}%`;
-            document.getElementById('mobile-progress-bar').style.width = `${percentage}%`;
-            document.getElementById('top-progress-text').textContent = `${percentage}%`;
+            const quizProgressBar = document.getElementById('quiz-progress-bar');
+            if (quizProgressBar) quizProgressBar.style.width = `${percentage}%`;
 
-            document.getElementById('palette-progress-text').textContent = `${answeredCount} / ${totalQuestionsCount}`;
+            const quizProgressPercent = document.getElementById('quiz-progress-percent');
+            if (quizProgressPercent) quizProgressPercent.textContent = `${percentage}%`;
+
+            document.getElementById('palette-progress-text').textContent = `${answeredCount} / ${totalActive}`;
+            document.getElementById('all-count').textContent = totalActive;
             document.getElementById('unanswered-count').textContent = unansweredCount;
             document.getElementById('flagged-count').textContent = flaggedCount;
         }
 
         function confirmSubmit() {
-            const unansweredCount = totalQuestionsCount - Object.keys(userAnswers).length;
+            const totalActive = activeQuestions.length;
+            const unansweredCount = totalActive - Object.keys(userAnswers).length;
             const modalMsg = document.getElementById('confirm-modal-msg');
 
             if (unansweredCount > 0) {
@@ -763,20 +937,29 @@
             setTimeout(() => modal.classList.add('hidden'), 300);
         }
 
+        function closeResultsModal() {
+            const modal = document.getElementById('results-modal');
+            if (modal) {
+                modal.children[0].classList.add('scale-95');
+                modal.classList.add('opacity-0');
+                setTimeout(() => modal.classList.add('hidden'), 300);
+            }
+        }
+
         function gradeExam() {
             closeConfirmModal();
             stopTimer();
             isSubmitted = true;
 
-            const allQ = getAllQuestions();
+            const totalActive = activeQuestions.length;
             let totalScore = 0;
             let correctCount = 0;
             let wrongCount = 0;
             let unansweredCount = 0;
 
-            allQ.forEach(q => {
-                if (userAnswers.hasOwnProperty(q.id)) {
-                    if (userAnswers[q.id] === q.answer) {
+            activeQuestions.forEach(q => {
+                if (userAnswers.hasOwnProperty(q.displayIndex)) {
+                    if (userAnswers[q.displayIndex] === q.answer) {
                         correctCount++;
                         totalScore++;
                     } else {
@@ -787,25 +970,22 @@
                 }
             });
 
-            let sectionScores = quizDataset.map(sec => {
-                let secCorrect = 0;
-                sec.questions.forEach(q => {
-                    if (userAnswers[q.id] === q.answer) {
-                        secCorrect++;
-                    }
-                });
-                return {
-                    name: sec.section,
-                    correct: secCorrect,
-                    total: sec.questions.length
-                };
+            let sectionScoresMap = {};
+            activeQuestions.forEach(q => {
+                if (!sectionScoresMap[q.sectionName]) {
+                    sectionScoresMap[q.sectionName] = { correct: 0, total: 0 };
+                }
+                sectionScoresMap[q.sectionName].total++;
+                if (userAnswers[q.displayIndex] === q.answer) {
+                    sectionScoresMap[q.sectionName].correct++;
+                }
             });
 
-            const percent = Math.round((totalScore / totalQuestionsCount) * 100);
+            const percent = totalActive > 0 ? Math.round((totalScore / totalActive) * 100) : 0;
             const mins = String(Math.floor(timerSeconds / 60)).padStart(2, '0');
             const secs = String(timerSeconds % 60).padStart(2, '0');
 
-            document.getElementById('res-score-text').textContent = `${totalScore} / ${totalQuestionsCount}`;
+            document.getElementById('res-score-text').textContent = `${totalScore} / ${totalActive}`;
             document.getElementById('res-percentage-text').textContent = `${percent}%`;
             document.getElementById('res-time-text').textContent = `${mins}:${secs}`;
 
@@ -832,13 +1012,14 @@
 
             const bdContainer = document.getElementById('section-breakdown');
             bdContainer.innerHTML = '';
-            sectionScores.forEach(sec => {
-                const secPct = Math.round((sec.correct / sec.total) * 100);
+            Object.keys(sectionScoresMap).forEach(secName => {
+                const sec = sectionScoresMap[secName];
+                const secPct = sec.total > 0 ? Math.round((sec.correct / sec.total) * 100) : 0;
                 const row = document.createElement('div');
                 row.className = 'space-y-1';
                 row.innerHTML = `
                     <div class="flex items-center justify-between text-xs font-bold text-slate-700 dark:text-slate-300">
-                        <span>${sec.name}</span>
+                        <span>${secName}</span>
                         <span>${sec.correct} / ${sec.total} (${secPct}%)</span>
                     </div>
                     <div class="w-full bg-slate-200 dark:bg-slate-600 h-2 rounded-full overflow-hidden">
@@ -856,13 +1037,6 @@
                 resModal.classList.remove('opacity-0');
                 resModal.children[0].classList.remove('scale-95');
             }, 10);
-        }
-
-        function closeResultsModal() {
-            const modal = document.getElementById('results-modal');
-            modal.children[0].classList.add('scale-95');
-            modal.classList.add('opacity-0');
-            setTimeout(() => modal.classList.add('hidden'), 300);
         }
 
         function retakeExam() {
@@ -893,8 +1067,7 @@
         }
 
         window.onload = () => {
-            renderQuiz();
-            startTimer();
+            showHomeView();
         };
     </script>
 </body>
